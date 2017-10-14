@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="www.xnianq.cn">
   <title>DDE word0day复现 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+  <meta name="description" content="DDE word0day复现这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。">
 <meta name="keywords" content="pentest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DDE word0day复现">
 <meta property="og:url" content="www.xnianq.cn/2017/10/14/DDE-word0day复现/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+<meta property="og:description" content="DDE word0day复现这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。">
 <meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc1.png">
 <meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc2.png">
 <meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc3.png">
 <meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc4.png">
 <meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc5.png">
-<meta property="og:updated_time" content="2017-10-14T05:06:48.000Z">
+<meta property="og:updated_time" content="2017-10-14T05:08:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DDE word0day复现">
-<meta name="twitter:description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+<meta name="twitter:description" content="DDE word0day复现这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。">
 <meta name="twitter:image" content="http://ofutja06x.bkt.clouddn.com/doc1.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
@@ -180,7 +180,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。</p>
+        <h1 id="DDE-word0day复现"><a href="#DDE-word0day复现" class="headerlink" title="DDE word0day复现"></a>DDE word0day复现</h1><p>这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。<br><a id="more"></a></p>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
 <li>windows10 专业版</li>
 <li>kali 2016.2 &amp; msf</li>
@@ -445,7 +445,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,15 +457,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sqli</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">

