@@ -183,6 +183,8 @@
 <h2 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h2><p>据说这道题目可以N种解题思路，只找到这一种。<br>mongodb注入，在登录处可以直接登录，在uname=xxx&amp;pass=xxx处修改为uname[$ne]=xxx&amp;pass[$ne]=xxx可以登录进后台，可以看到moadmin后台，直接exp执行命令，<br>exp：<br><code>getflag。object=1;system(getflag);exit</code></p>
 <h2 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h2><p>这道题大师父提示了一下，原本是dede的站，直接考虑上exp，但是试了试，没有结果，权限写的也挺死，也没有后台密码，这种尴尬持续了好久好久，对面大师父看我太苦恼了，提示下扫端口。于是，拿出我的大神器nmap一顿狂扫，发现8806（好象是，我给忘了这个端口号 - -||）<br>发现是IIS 6.0，一个登录页面，尝试爆破，注入各种不行，我用nikto扫了下，发现可以INPUT，MOVE，DEL各种http命令，于是直接上传一个txt，通过MOVE命令把txt改成asp，得到小马，<br>但是没有权限，于是考虑提权，上exp，执行getflag命令，得到flag。</p>
 <p><img src="http://ofutja06x.bkt.clouddn.com/web2.png" alt="web2"></p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2016/08/17/ISCC2016-WP/</p>
 
       
 
@@ -449,15 +451,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">

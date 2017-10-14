@@ -202,6 +202,8 @@
 <p><code>$enc</code>值为所有字符串加密之后的内容，根据解密公式，我们可以了解到第二位与数字6进行异或解密就回得到数字0,然后再将7异或，就会得到我们想要的数值。</p>
 <p>给出全部示例代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'MY_AES_KEY'</span>, <span class="string">"abcdef0123456789"</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes</span><span class="params">($data, $encrypt)</span> </span>&#123;</div><div class="line">    $aes = mcrypt_module_open(MCRYPT_RIJNDAEL_128, <span class="string">''</span>, MCRYPT_MODE_CBC, <span class="string">''</span>);</div><div class="line">    $iv = <span class="string">"1234567891234567"</span>;</div><div class="line">    mcrypt_generic_init($aes, MY_AES_KEY, $iv);</div><div class="line">    <span class="keyword">return</span> $encrypt ? mcrypt_generic($aes,$data) : mdecrypt_generic($aes,$data);</div><div class="line">&#125;</div><div class="line">define(<span class="string">'MY_MAC_LEN'</span>, <span class="number">40</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span><span class="params">($data)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> aes($data, <span class="keyword">true</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span><span class="params">($data)</span> </span>&#123;</div><div class="line">    $data = rtrim(aes($data, <span class="keyword">false</span>), <span class="string">"\0"</span>);ss</div><div class="line">    <span class="keyword">return</span> $data;</div><div class="line">&#125;</div><div class="line">$v = <span class="string">"a:2:&#123;s:4:\"name\";s:6:\"sdsdsd\";s:8:\"greeting\";s:20:\"echo 'Hello sdsdsd!'\";&#125;"</span>;</div><div class="line"><span class="keyword">echo</span> <span class="string">"Plaintext before attack: $v\n"</span>;</div><div class="line">$b = <span class="keyword">array</span>();</div><div class="line">$enc = <span class="keyword">array</span>();</div><div class="line">$enc = @encrypt($v);</div><div class="line">$enc[<span class="number">2</span>] =  chr(ord($enc[<span class="number">2</span>]) ^ ord(<span class="string">"6"</span>) ^ ord (<span class="string">"7"</span>));</div><div class="line">$b = @decrypt($enc);</div><div class="line"><span class="keyword">echo</span> <span class="string">"Plaintext AFTER attack : $b\n"</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/07/28/cbc字节翻转攻击/</p>
 
       
 
@@ -468,15 +470,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
