@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>Archives: 2016 | xnianq&#39;blog</title>
+  <title>sql-injection with md5() | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="More Code,less talk!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xnianq&#39;blog">
-<meta property="og:url" content="www.xnianq.cn/archives/2016/index.html">
+  <meta name="description" content="sql-injection with md5()前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:1select * from users where username = &apos;md5($_GET[username])&apos; 在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql-injection with md5()">
+<meta property="og:url" content="www.xnianq.cn/2017/11/07/sql-injection-with-md5/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="More Code,less talk!">
+<meta property="og:description" content="sql-injection with md5()前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:1select * from users where username = &apos;md5($_GET[username])&apos; 在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。">
+<meta property="og:image" content="http://xnianq.cn/2017/11/07/sql-injection-with-md5/phpmd5.png">
+<meta property="og:updated_time" content="2017-11-07T06:52:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xnianq&#39;blog">
-<meta name="twitter:description" content="More Code,less talk!">
+<meta name="twitter:title" content="sql-injection with md5()">
+<meta name="twitter:description" content="sql-injection with md5()前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:1select * from users where username = &apos;md5($_GET[username])&apos; 在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。">
+<meta name="twitter:image" content="http://xnianq.cn/2017/11/07/sql-injection-with-md5/phpmd5.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -152,327 +155,174 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="title-sql-injection-with-md5" class="article article-type-title " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      sql-injection with md5()
+    </h1>
+  
+
+        
+        <a href="/2017/11/07/sql-injection-with-md5/" class="archive-article-date">
+  	<time datetime="2017-11-07T06:11:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="sql-injection-with-md5"><a href="#sql-injection-with-md5" class="headerlink" title="sql-injection with md5()"></a>sql-injection with md5()</h1><p>前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">users</span> <span class="keyword">where</span> username = <span class="string">'md5($_GET[username])'</span></div></pre></td></tr></table></figure></p>
+<p>在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。<br><a id="more"></a></p>
+<h2 id="index-php"><a href="#index-php" class="headerlink" title="index.php"></a>index.php</h2><p>index.php内容大致如下(我借用国外的一次ctf题目)：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require</span> <span class="string">"inc/mysql.inc.php"</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;&lt;title&gt;Oh, Those Admins!&lt;/title&gt;&lt;/head&gt;</div><div class="line">&lt;body&gt;&lt;center&gt;&lt;h1&gt;Oh, hi!&lt;/h1&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>($_GET[<span class="string">'password'</span>])) &#123;</div><div class="line"> $r = mysql_query(<span class="string">"SELECT login FROM admins WHERE password = '"</span> . md5($_GET[<span class="string">'password'</span>], <span class="keyword">true</span>) . <span class="string">"'"</span>);</div><div class="line"> <span class="keyword">if</span> (mysql_num_rows($r) &lt; <span class="number">1</span>)</div><div class="line">  <span class="keyword">echo</span> <span class="string">"Oh, you shall not pass with that password, Stranger!"</span>;</div><div class="line"> <span class="keyword">else</span> &#123;</div><div class="line">  $row = mysql_fetch_assoc($r);</div><div class="line">  $login = $row[<span class="string">'login'</span>];</div><div class="line">  <span class="keyword">echo</span> <span class="string">"Oh dear, hello &lt;b&gt;$login&lt;/b&gt;!&lt;br/&gt;&lt;br/&gt;Oh, and here's the list of all Admins!&lt;table border=1&gt;&lt;tr&gt;&lt;td&gt;Oh, login!&lt;/td&gt;&lt;td&gt;Oh, password!&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">  $r = mysql_query(<span class="string">"SELECT * FROM admins"</span>);</div><div class="line">  <span class="keyword">while</span> ($row = mysql_fetch_assoc($r))</div><div class="line">   <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;&#123;$row['login']&#125;&lt;/td&gt;&lt;td&gt;&#123;$row['password']&#125;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">  <span class="keyword">echo</span> <span class="string">"&lt;/table&gt;"</span>;</div><div class="line"> &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;form&gt;Oh, give me your password, Admin!&lt;br/&gt;&lt;br/&gt;&lt;input type=<span class="string">'text'</span> name=<span class="string">'password'</span> /&gt;&lt;input type=<span class="string">'submit'</span> value=<span class="string">'&amp;raquo;'</span> /&gt;&lt;/form&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;br/&gt;&lt;br/&gt;&lt;small&gt;Oh, &amp;copy; <span class="number">2010</span> vos!&lt;/small&gt;&lt;/center&gt;&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="md5函数缺陷"><a href="#md5函数缺陷" class="headerlink" title="md5函数缺陷"></a>md5函数缺陷</h2><p><img src="http://xnianq.cn/2017/11/07/sql-injection-with-md5/phpmd5.png" alt=""><br>php手册中介绍道，当md5()函数第二个参数为true时，会以16字节长度的原始二进制格式返回。</p>
+<p>那么原始的二进制中可不可以包含单引号，以及其他sql语句函数。既然这样一开始我思路是先fuzz一下md5()，为了减少我们消耗的时间，我们需要将我们注入奏效语句尽可能短,而不是注入出密码，采用”‘or’1”的思路，我找到最短的字符串:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">'||<span class="number">1</span>;<span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p>有cfuzz脚本，代码地址：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/stevejarvis/</span>binary-sql-inject</div></pre></td></tr></table></figure></p>
+<p>最后跑出来我们需要的hash，提交，得到flag。</p>
+<p>password=129581926211651571912466741651878684928</p>
+<p>登陆成功～</p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/11/07/sql-injection-with-md5/</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/12/20/google-hacking/" class="archive-article-date">
-  	<time datetime="2016-12-20T04:58:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/20/google-hacking/">google-hacking</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/11/07/sql-injection-with-md5/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/10/29/内网msf连接外网机器/" class="archive-article-date">
-  	<time datetime="2016-10-29T14:01:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/03/全国高校运维挑战赛wp-md/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2017全国高校运维挑战赛wp</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/10/29/内网msf连接外网机器/">内网msf连接外网机器</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/09/30/一些拿站的思路/" class="archive-article-date">
-  	<time datetime="2016-09-29T22:37:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/30/一些拿站的思路/">JBoss的思路</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/09/19/thinkings/" class="archive-article-date">
-  	<time datetime="2016-09-19T12:34:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/19/thinkings/">thinkings</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/09/01/zabbix批量检测以及zoomeye搜索/" class="archive-article-date">
-  	<time datetime="2016-09-01T11:07:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/09/01/zabbix批量检测以及zoomeye搜索/">zabbix批量检测以及zoomeye搜索</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-ISCC2016-WP">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/08/17/ISCC2016-WP/" class="archive-article-date">
-  	<time datetime="2016-08-17T10:06:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/17/ISCC2016-WP/">ISCC2016-WP</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/08/05/安全之路读书笔记（一）/" class="archive-article-date">
-  	<time datetime="2016-08-05T06:42:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/05/安全之路读书笔记（一）/">安全之路读书笔记（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/08/04/Hello-the-word/" class="archive-article-date">
-  	<time datetime="2016-08-04T13:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/08/04/Hello-the-word/">Hello the word</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -495,8 +345,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
