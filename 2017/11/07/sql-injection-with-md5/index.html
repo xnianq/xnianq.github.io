@@ -15,7 +15,8 @@
 <meta property="og:site_name" content="xnianq&#39;blog">
 <meta property="og:description" content="sql-injection with md5()前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:1select * from users where username = &apos;md5($_GET[username])&apos; 在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。">
 <meta property="og:image" content="http://xnianq.cn/2017/11/07/sql-injection-with-md5/phpmd5.png">
-<meta property="og:updated_time" content="2017-11-07T06:52:37.000Z">
+<meta property="og:image" content="http://xnianq.cn/2017/11/07/sql-injection-with-md5/finalmd5.png">
+<meta property="og:updated_time" content="2017-11-07T06:55:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql-injection with md5()">
 <meta name="twitter:description" content="sql-injection with md5()前两天的一次ctf中遇到了这么一道题目，在审计代码的过程中，发现了一个比较有趣的sql语句:1select * from users where username = &apos;md5($_GET[username])&apos; 在看到这条语句时，username已经经过md5函数，感觉没办法注入，但是后面的代码并没有任何可疑的地方，所以就在这一方面下了下文章。">
@@ -182,7 +183,7 @@
 <p>那么原始的二进制中可不可以包含单引号，以及其他sql语句函数。既然这样一开始我思路是先fuzz一下md5()，为了减少我们消耗的时间，我们需要将我们注入奏效语句尽可能短,而不是注入出密码，采用”‘or’1”的思路，我找到最短的字符串:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">'||<span class="number">1</span>;<span class="comment">#</span></div></pre></td></tr></table></figure></p>
 <p>有cfuzz脚本，代码地址：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https:<span class="regexp">//gi</span>thub.com<span class="regexp">/stevejarvis/</span>binary-sql-inject</div></pre></td></tr></table></figure></p>
 <p>最后跑出来我们需要的hash，提交，得到flag。</p>
-<p>password=129581926211651571912466741651878684928</p>
+<p><img src="http://xnianq.cn/2017/11/07/sql-injection-with-md5/finalmd5.png" alt=""><br>password=129581926211651571912466741651878684928</p>
 <p>登陆成功～</p>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2017/11/07/sql-injection-with-md5/</p>
