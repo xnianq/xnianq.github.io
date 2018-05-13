@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="www.xnianq.cn">
   <title>全国网络空间安全大赛wp | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
+  <meta name="description" content="全国网络空间安全大赛wp学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
 <meta name="keywords" content="ctf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="全国网络空间安全大赛wp">
 <meta property="og:url" content="www.xnianq.cn/2018/05/13/全国网络空间安全大赛wp/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
+<meta property="og:description" content="全国网络空间安全大赛wp学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
 <meta property="og:image" content="http://xnianq.cn/2018/05/13/全国网络空间安全大赛wp/web1.png">
 <meta property="og:image" content="http://xnianq.cn/2018/05/13/全国网络空间安全大赛wp/web2.png">
 <meta property="og:image" content="http://xnianq.cn/2018/05/13/全国网络空间安全大赛wp/web1.png">
-<meta property="og:updated_time" content="2018-05-13T15:06:50.955Z">
+<meta property="og:updated_time" content="2018-05-13T15:08:18.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="全国网络空间安全大赛wp">
-<meta name="twitter:description" content="学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
+<meta name="twitter:description" content="全国网络空间安全大赛wp学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..">
 <meta name="twitter:image" content="http://xnianq.cn/2018/05/13/全国网络空间安全大赛wp/web1.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
@@ -178,7 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..<br><a id="more"></a></p>
+        <h1 id="全国网络空间安全大赛wp"><a href="#全国网络空间安全大赛wp" class="headerlink" title="全国网络空间安全大赛wp"></a>全国网络空间安全大赛wp</h1><p>学弟的脑洞是真的大，web学到了很多，很好的题目，最后第七，有点小遗憾，继续加油吧..<br><a id="more"></a></p>
 <h2 id="welcome"><a href="#welcome" class="headerlink" title="welcome"></a>welcome</h2><p>直接输入flag就可以</p>
 <h2 id="misc1"><a href="#misc1" class="headerlink" title="misc1"></a>misc1</h2><p>图片里有一个压缩包, 压缩包未加密, 更改标志位之后, 得到了一个包含多行base64的文件…猜也是base64隐写, 网上找个脚本<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">b64chars = <span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'</span></div><div class="line"></div><div class="line"><span class="keyword">with</span> open(<span class="string">'./stego.txt'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</div><div class="line">    bin_str = <span class="string">''</span></div><div class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</div><div class="line">        stegb64 = <span class="string">''</span>.join(line.split())</div><div class="line">        rowb64 =  <span class="string">''</span>.join(stegb64.decode(<span class="string">'base64'</span>).encode(<span class="string">'base64'</span>).split())</div><div class="line"></div><div class="line">        offset = abs(b64chars.index(stegb64.replace(<span class="string">'='</span>,<span class="string">''</span>)[<span class="number">-1</span>])-b64chars.index(rowb64.replace(<span class="string">'='</span>,<span class="string">''</span>)[<span class="number">-1</span>]))</div><div class="line">        equalnum = stegb64.count(<span class="string">'='</span>) <span class="comment">#no equalnum no offset</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> equalnum:</div><div class="line">            bin_str += bin(offset)[<span class="number">2</span>:].zfill(equalnum * <span class="number">2</span>)</div><div class="line"></div><div class="line">        <span class="keyword">print</span> <span class="string">''</span>.join([chr(int(bin_str[i:i + <span class="number">8</span>], <span class="number">2</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>, len(bin_str), <span class="number">8</span>)])</div></pre></td></tr></table></figure></p>
 <h2 id="misc2"><a href="#misc2" class="headerlink" title="misc2"></a>misc2</h2><p>在 Windows 上用 7-zip 打开, 可以发现 xiyangyang.mp3:flag.doc, 7z 说是 NTFS 的交换数据流.<br>直接打开在最后有一段 flag{All_success_coms, 在上面可以找到对应的被语法分析暴露的 _from_your_efforts}<br>拼起来得到 flag{All_success_coms_from_your_efforts}</p>
@@ -465,11 +465,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -477,7 +473,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color4">ctf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
