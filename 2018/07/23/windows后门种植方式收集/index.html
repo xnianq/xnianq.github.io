@@ -8,17 +8,20 @@
   <link rel="dns-prefetch" href="www.xnianq.cn">
   <title>windows后门种植方式收集 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。 1.注册表类型1.1 普通注册表后门在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersi">
+  <meta name="description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。">
 <meta name="keywords" content="pentest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows后门种植方式收集">
 <meta property="og:url" content="www.xnianq.cn/2018/07/23/windows后门种植方式收集/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。 1.注册表类型1.1 普通注册表后门在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersi">
-<meta property="og:updated_time" content="2018-07-23T11:04:57.883Z">
+<meta property="og:description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。">
+<meta property="og:image" content="www.xnianq.cn/2018/07/23/windows后门种植方式收集/%22http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/logon.png%22">
+<meta property="og:image" content="www.xnianq.cn/2018/07/23/windows后门种植方式收集/%22http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/logon-2.png%22">
+<meta property="og:updated_time" content="2018-07-23T11:08:13.495Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows后门种植方式收集">
-<meta name="twitter:description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。 1.注册表类型1.1 普通注册表后门在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersi">
+<meta name="twitter:description" content="windows后门种植方式收集看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。">
+<meta name="twitter:image" content="www.xnianq.cn/2018/07/23/windows后门种植方式收集/%22http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/logon.png%22">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -174,10 +177,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="windows后门种植方式收集"><a href="#windows后门种植方式收集" class="headerlink" title="windows后门种植方式收集"></a>windows后门种植方式收集</h1><p>看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。</p>
+        <h1 id="windows后门种植方式收集"><a href="#windows后门种植方式收集" class="headerlink" title="windows后门种植方式收集"></a>windows后门种植方式收集</h1><p>看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。<br><a id="more"></a></p>
 <h2 id="1-注册表类型"><a href="#1-注册表类型" class="headerlink" title="1.注册表类型"></a>1.注册表类型</h2><h3 id="1-1-普通注册表后门"><a href="#1-1-普通注册表后门" class="headerlink" title="1.1 普通注册表后门"></a>1.1 普通注册表后门</h3><p>在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersion\Run，键名任意。普通权限即可运行。</p>
 <p>缺点：容易被杀软发现<br>优点：种植容易</p>
-<h3 id="1-2-Logon-Scripts后门"><a href="#1-2-Logon-Scripts后门" class="headerlink" title="1.2 Logon Scripts后门"></a>1.2 Logon Scripts后门</h3><p>注册表路径: HKCU\Environment\<br>创建字符串键值: UserInitMprLogonScript<br>键值设置为bat的绝对路径:D:\工作\1.bat</p>
+<h3 id="1-2-Logon-Scripts后门"><a href="#1-2-Logon-Scripts后门" class="headerlink" title="1.2 Logon Scripts后门"></a>1.2 Logon Scripts后门</h3><p>注册表路径: HKCU\Environment\<br>创建字符串键值: UserInitMprLogonScript<br>键值设置为bat的绝对路径:D:\工作\1.bat<br><img src="&quot;http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/logon.png&quot;" alt=""><br>注销，再登录弹出计算器：<br><img src="&quot;http://xnianq.cn/2018/07/23/windows%E5%90%8E%E9%97%A8%E7%A7%8D%E6%A4%8D%E6%96%B9%E5%BC%8F%E6%94%B6%E9%9B%86/logon-2.png&quot;" alt=""></p>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2018/07/23/windows后门种植方式收集/</p>
 
@@ -433,10 +436,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
@@ -446,6 +445,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">

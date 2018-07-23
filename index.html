@@ -174,13 +174,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="windows后门种植方式收集"><a href="#windows后门种植方式收集" class="headerlink" title="windows后门种植方式收集"></a>windows后门种植方式收集</h1><p>看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。</p>
-<h2 id="1-注册表类型"><a href="#1-注册表类型" class="headerlink" title="1.注册表类型"></a>1.注册表类型</h2><h3 id="1-1-普通注册表后门"><a href="#1-1-普通注册表后门" class="headerlink" title="1.1 普通注册表后门"></a>1.1 普通注册表后门</h3><p>在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersion\Run，键名任意。普通权限即可运行。</p>
-<p>缺点：容易被杀软发现<br>优点：种植容易</p>
-<h3 id="1-2-Logon-Scripts后门"><a href="#1-2-Logon-Scripts后门" class="headerlink" title="1.2 Logon Scripts后门"></a>1.2 Logon Scripts后门</h3><p>注册表路径: HKCU\Environment\<br>创建字符串键值: UserInitMprLogonScript<br>键值设置为bat的绝对路径:D:\工作\1.bat</p>
-<hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2018/07/23/windows后门种植方式收集/</p>
-
+        <h1 id="windows后门种植方式收集"><a href="#windows后门种植方式收集" class="headerlink" title="windows后门种植方式收集"></a>windows后门种植方式收集</h1><p>看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。<br>
+        
+          <a class="article-more-a" href="/2018/07/23/windows后门种植方式收集/#more">more >></a>
+        
       
 
       
@@ -1017,10 +1014,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
@@ -1030,6 +1023,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
