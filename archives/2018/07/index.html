@@ -6,22 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="www.xnianq.cn">
-  <title>cbc字节翻转攻击 | xnianq&#39;blog</title>
+  <title>Archives: 2018/7 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="cbc字节翻转攻击感觉在密码学课上朱老师并没有讲到这种攻击方法，个人感觉是cbc模式设置的缺陷，在ctf比赛中也碰到过几次，当时年少无知，没有想到过还有这种思路，所以现在想总结一下，以免在以后比赛中丢分。">
-<meta name="keywords" content="ctf,crypto">
-<meta property="og:type" content="article">
-<meta property="og:title" content="cbc字节翻转攻击">
-<meta property="og:url" content="www.xnianq.cn/2017/07/28/cbc字节翻转攻击/index.html">
+  <meta name="description" content="More Code,less talk!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="xnianq&#39;blog">
+<meta property="og:url" content="www.xnianq.cn/archives/2018/07/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="cbc字节翻转攻击感觉在密码学课上朱老师并没有讲到这种攻击方法，个人感觉是cbc模式设置的缺陷，在ctf比赛中也碰到过几次，当时年少无知，没有想到过还有这种思路，所以现在想总结一下，以免在以后比赛中丢分。">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/Cbc_encryption.png">
-<meta property="og:image" content="http://ofutja06x.bkt.clouddn.com/Cbc_decryption.png">
-<meta property="og:updated_time" content="2017-07-31T02:15:36.000Z">
+<meta property="og:description" content="More Code,less talk!">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cbc字节翻转攻击">
-<meta name="twitter:description" content="cbc字节翻转攻击感觉在密码学课上朱老师并没有讲到这种攻击方法，个人感觉是cbc模式设置的缺陷，在ctf比赛中也碰到过几次，当时年少无知，没有想到过还有这种思路，所以现在想总结一下，以免在以后比赛中丢分。">
-<meta name="twitter:image" content="http://ofutja06x.bkt.clouddn.com/Cbc_encryption.png">
+<meta name="twitter:title" content="xnianq&#39;blog">
+<meta name="twitter:description" content="More Code,less talk!">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
   
@@ -157,214 +152,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="title-cbc字节翻转攻击" class="article article-type-title " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      cbc字节翻转攻击
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/07/23/windows后门种植方式收集/" class="archive-article-date">
+  	<time datetime="2018-07-23T11:01:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-23</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/07/23/windows后门种植方式收集/">windows后门种植方式收集</a>
     </h1>
   
 
-        
-        <a href="/2017/07/28/cbc字节翻转攻击/" class="archive-article-date">
-  	<time datetime="2017-07-28T08:27:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="cbc字节翻转攻击"><a href="#cbc字节翻转攻击" class="headerlink" title="cbc字节翻转攻击"></a>cbc字节翻转攻击</h1><p>感觉在密码学课上朱老师并没有讲到这种攻击方法，个人感觉是cbc模式设置的缺陷，在ctf比赛中也碰到过几次，当时年少无知，没有想到过还有这种思路，所以现在想总结一下，以免在以后比赛中丢分。<br><a id="more"></a></p>
-<h2 id="0x01原理"><a href="#0x01原理" class="headerlink" title="0x01原理"></a>0x01原理</h2><p>在了解攻击之前，建议先看一下上一篇文章中提到的cbc加密原理，或者google查询了解一下，这里我就只放一张cbc加密过程图：<br><img src="http://ofutja06x.bkt.clouddn.com/Cbc_encryption.png" alt=""><br>解密过程图：<br><img src="http://ofutja06x.bkt.clouddn.com/Cbc_decryption.png" alt=""><br>解密过程简单介绍一下：</p>
-<ol>
-<li>从得到的密文中获取IV，并且将剩下的密文进行分组</li>
-<li>将第一组明文进行解密，然后与IV进行异或运算，得到第一组明文</li>
-<li>对第二组密文进行解密，然后与第一组密文进行异或运算，得到第二组明文</li>
-<li>依次类推，知道解密完为止。</li>
-</ol>
-<p>所谓字节翻转，根据我的个人理解，是将要对你得到的目的数值的位置的加密变量向量进行操作，也就是上一组加密的明文进行操作，进而得到你要的值。</p>
-<p>比如，现在第二组密文解密之后为A，第一组密文为B，那么我们将A与B进行异或运算，就会得到第二组明文C。即</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">C</span> = A^B</div></pre></td></tr></table></figure>
-<p>现在我们进行下面的运算，比方你要将解密后的数据变为D，则可以通过：</p>
-<figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">A<span class="symbol">^B</span><span class="symbol">^C</span><span class="symbol">^D</span></div></pre></td></tr></table></figure>
-<p>原理很简单吧，A^B和C是相等的，所以为0，那么0再与D进行亦或，那就是D本身，则我们攻击成功。</p>
-<h2 id="CTF实例"><a href="#CTF实例" class="headerlink" title="CTF实例"></a>CTF实例</h2><p>一般ctf web题目中，cbc字节翻转攻击是用来通过更改cookie中的某个位置，进而得到相应的权限，得到flag。</p>
-<p>这里用网上一个比较容易理解的例子吧，有以下明文序列：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:2</span>:&#123;<span class="attribute">s</span>:<span class="number">4</span>:<span class="string">"name"</span>;<span class="attribute">s</span>:<span class="number">6</span>:<span class="string">"sdsdsd"</span>;<span class="attribute">s</span>:<span class="number">8</span>:<span class="string">"greeting"</span>;<span class="attribute">s</span>:<span class="number">20</span>:<span class="string">"echo 'Hello sdsdsd!'"</span>;&#125;</div></pre></td></tr></table></figure>
-<p>如果我们想把其中的数字6改为数字7。我们需要进行以下步骤:</p>
-<h3 id="第一步-将字符串分组"><a href="#第一步-将字符串分组" class="headerlink" title="第一步-将字符串分组"></a>第一步-将字符串分组</h3><p>将字符串每16位分成一组，一共分为以下组：</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a:2:&#123;s:4:"name";</div><div class="line">s:6:"sdsdsd";s:8</div><div class="line"><span class="meta">:"greeting";s:20</span></div><div class="line"><span class="meta">:"echo</span> <span class="emphasis">'Hello sd</span></div><div class="line"><span class="emphasis">sdsd!'</span>";&#125;</div></pre></td></tr></table></figure>
-<h3 id="第二步-确定要修改的位置"><a href="#第二步-确定要修改的位置" class="headerlink" title="第二步-确定要修改的位置"></a>第二步-确定要修改的位置</h3><p>其中数字6在第二组的第三位，所以我们需要操作第一组密文中的第三位，进而得到我们想要的值。代码过程如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$v = <span class="string">"a:2:&#123;s:4:"</span>name<span class="string">";s:6:"</span>sdsdsd<span class="string">";s:8:"</span>greeting<span class="string">";s:20:"</span><span class="keyword">echo</span> <span class="string">'Hello sdsdsd!'</span><span class="string">";&#125;"</span>;</div><div class="line">$enc = @encrypt($v);</div><div class="line">$enc[<span class="number">2</span>] = chr(ord($enc[<span class="number">2</span>]) ^ ord(<span class="string">"6"</span>) ^ ord (<span class="string">"7"</span>));</div><div class="line">$b = @decrypt($enc);</div></pre></td></tr></table></figure>
-<p><code>$enc</code>值为所有字符串加密之后的内容，根据解密公式，我们可以了解到第二位与数字6进行异或解密就回得到数字0,然后再将7异或，就会得到我们想要的数值。</p>
-<p>给出全部示例代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'MY_AES_KEY'</span>, <span class="string">"abcdef0123456789"</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">aes</span><span class="params">($data, $encrypt)</span> </span>&#123;</div><div class="line">    $aes = mcrypt_module_open(MCRYPT_RIJNDAEL_128, <span class="string">''</span>, MCRYPT_MODE_CBC, <span class="string">''</span>);</div><div class="line">    $iv = <span class="string">"1234567891234567"</span>;</div><div class="line">    mcrypt_generic_init($aes, MY_AES_KEY, $iv);</div><div class="line">    <span class="keyword">return</span> $encrypt ? mcrypt_generic($aes,$data) : mdecrypt_generic($aes,$data);</div><div class="line">&#125;</div><div class="line">define(<span class="string">'MY_MAC_LEN'</span>, <span class="number">40</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">encrypt</span><span class="params">($data)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> aes($data, <span class="keyword">true</span>);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">decrypt</span><span class="params">($data)</span> </span>&#123;</div><div class="line">    $data = rtrim(aes($data, <span class="keyword">false</span>), <span class="string">"\0"</span>);ss</div><div class="line">    <span class="keyword">return</span> $data;</div><div class="line">&#125;</div><div class="line">$v = <span class="string">"a:2:&#123;s:4:\"name\";s:6:\"sdsdsd\";s:8:\"greeting\";s:20:\"echo 'Hello sdsdsd!'\";&#125;"</span>;</div><div class="line"><span class="keyword">echo</span> <span class="string">"Plaintext before attack: $v\n"</span>;</div><div class="line">$b = <span class="keyword">array</span>();</div><div class="line">$enc = <span class="keyword">array</span>();</div><div class="line">$enc = @encrypt($v);</div><div class="line">$enc[<span class="number">2</span>] =  chr(ord($enc[<span class="number">2</span>]) ^ ord(<span class="string">"6"</span>) ^ ord (<span class="string">"7"</span>));</div><div class="line">$b = @decrypt($enc);</div><div class="line"><span class="keyword">echo</span> <span class="string">"Plaintext AFTER attack : $b\n"</span>;</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2017/07/28/cbc字节翻转攻击/</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/zfb.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="http://ofutja06x.bkt.clouddn.com/wx.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">crypto</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http:www.xnianq.cn/2017/07/28/cbc字节翻转攻击/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/07/31/ctf中web题目常见的协议/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ctf中web题目常见的协议
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/07/26/padding-oracle/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">padding-oracle</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
+    
 
 
           </div>
@@ -387,8 +228,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

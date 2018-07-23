@@ -154,6 +154,85 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-windows后门种植方式收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/23/windows后门种植方式收集/">windows后门种植方式收集</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/23/windows后门种植方式收集/" class="archive-article-date">
+  	<time datetime="2018-07-23T11:01:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="windows后门种植方式收集"><a href="#windows后门种植方式收集" class="headerlink" title="windows后门种植方式收集"></a>windows后门种植方式收集</h1><p>看三好学生师傅的博客，感觉受益匪浅，就把他记录留后门维持权限的东西总结一下，当做笔记，向师傅看齐。刚好导师让收集一下windows维持权限的方法，在这里也一并记录一下。</p>
+<h2 id="1-注册表类型"><a href="#1-注册表类型" class="headerlink" title="1.注册表类型"></a>1.注册表类型</h2><h3 id="1-1-普通注册表后门"><a href="#1-1-普通注册表后门" class="headerlink" title="1.1 普通注册表后门"></a>1.1 普通注册表后门</h3><p>在一般用户权限下，通常是将要执行的后门程序或脚本路径填写到如下注册表的键值中HKCU\Software\Microsoft\Windows\CurrentVersion\Run，键名任意。普通权限即可运行。</p>
+<p>缺点：容易被杀软发现<br>优点：种植容易</p>
+<h3 id="1-2-Logon-Scripts后门"><a href="#1-2-Logon-Scripts后门" class="headerlink" title="1.2 Logon Scripts后门"></a>1.2 Logon Scripts后门</h3><p>注册表路径: HKCU\Environment\<br>创建字符串键值: UserInitMprLogonScript<br>键值设置为bat的绝对路径:D:\工作\1.bat</p>
+<hr>
+<p>本文出自”xnianq Blog”：www.xnianq.cn/2018/07/23/windows后门种植方式收集/</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pentest</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/23/windows后门种植方式收集/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="title-全国网络空间安全大赛wp" class="article article-type-title  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -828,86 +907,6 @@
 
 
   
-    <article id="title-逆向学习01-一道简单的逆向题目" class="article article-type-title  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/02/逆向学习01-一道简单的逆向题目/">逆向学习01-一道简单的逆向题目</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/02/逆向学习01-一道简单的逆向题目/" class="archive-article-date">
-  	<time datetime="2017-08-02T06:50:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="逆向学习01-一道简单的逆向题目"><a href="#逆向学习01-一道简单的逆向题目" class="headerlink" title="逆向学习01-一道简单的逆向题目"></a>逆向学习01-一道简单的逆向题目</h1><p>这一学期也上完汇编、计算机组成原理课程了，了解了一些基础知识，偶尔也作一作可逆可pwn，会web的白日梦，:P，还好吧，工作不算是很饱和，希望每天可以抽出一部分时间让我的这个白日梦慢慢实现吧～233<br>
-        
-          <a class="article-more-a" href="/2017/08/02/逆向学习01-一道简单的逆向题目/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ctf</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">reverse</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/02/逆向学习01-一道简单的逆向题目/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1018,11 +1017,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
