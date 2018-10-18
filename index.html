@@ -174,35 +174,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="域渗透之横向移动"><a href="#域渗透之横向移动" class="headerlink" title="域渗透之横向移动"></a>域渗透之横向移动</h1><p>最近在根据ATT&amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。<br>在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。</p>
-<h2 id="windows认证机制"><a href="#windows认证机制" class="headerlink" title="windows认证机制"></a>windows认证机制</h2><p>在开始之前先了解一下windows中的认证机制以及hash类型</p>
-<h3 id="hash类型"><a href="#hash类型" class="headerlink" title="hash类型"></a>hash类型</h3><h4 id="LM-Hash"><a href="#LM-Hash" class="headerlink" title="LM Hash"></a>LM Hash</h4><p>LM Hash是一种较古老的Hash，在LAN Manager协议中使用，非常容易通过暴力破解获取明文凭据。Vista以前的Windows OS使用它，Vista之后的版本默认禁用了LM协议，但某些情况下还是可以使用。</p>
-<h4 id="NTLM-Hash"><a href="#NTLM-Hash" class="headerlink" title="NTLM Hash"></a>NTLM Hash</h4><p>Vista以上现代操作系统使用的Hash。通常意义上的NTLM Hash指存储在SAM数据库及NTDS数据库中对密码进行摘要计算后的结果，这类Hash可以直接用于PtH，并且通常存在于lsass进程中，便于SSP使用。</p>
-<h4 id="Net-NTLM-Hash"><a href="#Net-NTLM-Hash" class="headerlink" title="Net-NTLM Hash"></a>Net-NTLM Hash</h4><p>Net-NTLM Hash用于网络身份认证（例如ntlm认证中），目前分为两个版本：<br>Net-NTLMv1<br>Net-NTLMv2<br>通常我们使用Responder等工具获取到的就是NetNTLM，这类hash并不能直接用来PtH，但可以通过暴力破解来获取明文密码</p>
-<h3 id="windows认证机制-1"><a href="#windows认证机制-1" class="headerlink" title="windows认证机制"></a>windows认证机制</h3><p>工作组使用的ntml认证而如果机器在域内，则使用基于Kerberos的认证方式.</p>
-<h4 id="ntml认证"><a href="#ntml认证" class="headerlink" title="ntml认证"></a>ntml认证</h4><p>工作组中：</p>
-<ul>
-<li>客户端发起认证请求</li>
-<li>服务端收到认证请求，向客户端发送随机数（chanlleng/挑战）</li>
-<li>客户端使用NTLM Hash打乱该随机数，生成Net-NTLM Hash，发送回服务端<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/workgroup-ntlm.png" alt=""><br>域环境中：<br>比起工作组中，域中多了一个域控的角色。<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ntlm-auth.png" alt=""></li>
-<li>首先在client输入username,password和domain,然后client会把password hash后的值先缓存到本地</li>
-<li>之后,client把username的明文发送给server(DC)</li>
-<li>DC会生成一个16字节的随机数,即challenge(挑战码),再传回给client</li>
-<li>当client收到challenge以后,会先复制一份出来,然后和缓存中的密码hash再一同混合hash一次,混合后的值称为response,之后client再将challenge,response及username一并都传给server</li>
-<li>server端在收到client传过来的这三个值以后会把它们都转发给DC</li>
-<li>当DC接到过来的这三个值的以后,会根据username到域控的账号数据库(ntds.dit)里面找到该username对应的hash,然后把这个hash拿出来和传过来的challenge值再混合hash</li>
-<li>将(6)中混合后的hash值跟传来的response进行比较,相同则认证成功,反之,则失败,当然,如果是本地登录,所有验证肯定也全部都直接在本地进行了<h4 id="kerberos协议"><a href="#kerberos协议" class="headerlink" title="kerberos协议"></a>kerberos协议</h4><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/kerberos.png" alt=""></li>
-<li>客户机将明文密码进行ntlm哈希,然后和时间戳一起加密，发送给kdc（域控）,kdc对用户进行检测，成功之后创建TGT(Ticket-Granting Ticket)</li>
-<li>将TGT进行加密签名返回给客户机器，只有域用户krbtgt才能读取kerberos中tgt数据</li>
-<li>然后客户机将tgt发送给域控制器KDC请求TGS（票证授权服务）票证，并且对tgt进行检测</li>
-<li>检测成功之后，将目标服务账户的ntlm以及tgt进行加密，将加密后的结果返回给客户机。<br>详细过程，分为三个步骤：<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">第一:从AS服务器中获取TGT票据</div><div class="line">用户在客户端输入账号和密码之后，会对密码进行hash处理，作为user-secret-key</div><div class="line"><span class="number">1</span>. 客户端将用户名发送给AS服务器申请服务,在AS服务器中会对用户名进行验证，在AS服务器本地数据库中查询到该用户名的密码，并使用hash生成user-secrect-key.</div><div class="line"><span class="number">2</span>. AS服务器向用户发送两样东西：</div><div class="line">   <span class="number">1</span>） Client/TGS会话密钥，使用user-secrect-key进行加密</div><div class="line">   <span class="number">2</span>） TGT，包含TGS会话密钥，用户信息，时间戳，TGT有效期。使用TGS密钥进行加密</div><div class="line"><span class="number">3</span>. 用户接收到消息之后，回使用本地的user-secret-key对消息<span class="number">1</span>)进行解密，如果解密成功，说明用户提供的凭证是正确的,此时用户得到了加密后的TGT。</div><div class="line"></div><div class="line">第二:从TGS服务器中获取访问权限</div><div class="line"><span class="number">1</span>. 客户端向TGS服务器发送信息：</div><div class="line">   <span class="number">1</span>） 第一步骤中的TGT</div><div class="line">   <span class="number">2</span>） 认证信息（认证符(Authenticator)），包含用户id以及时间戳，通过TGS会话密钥进行加密。</div><div class="line"><span class="number">2</span>. TGS服务器收到消息之后，会使用TGS密钥对消息<span class="number">1</span>）进行解密,获取到TGS会话密钥，进而对消息<span class="number">2</span>）进行解密，在对用户id以及时间戳进行认证，如果认证成功，向客户端发送消息：</div><div class="line">   <span class="number">1</span>） client-server-ticket(包含<span class="built_in">SS</span>会话密钥，用户名信息以及时间戳)，使用<span class="built_in">ss</span>密钥进行加密</div><div class="line">   <span class="number">2</span>） <span class="built_in">ss</span>会话密钥使用TGS会话密钥进行加密</div><div class="line"><span class="number">3</span>. 客户端收到信息之后会对消息<span class="number">2</span>）进行解密，获得<span class="built_in">ss</span>会话密钥。</div><div class="line"></div><div class="line">第三：访问服务</div><div class="line"><span class="number">1</span>. 客户端向<span class="built_in">ss</span>服务器发送以下消息：</div><div class="line">   <span class="number">1</span>）第二步骤中的client-server-ticket</div><div class="line">   <span class="number">2</span>）新的Authenticator，包含用户信息，时间戳。通过<span class="built_in">SS</span>会话密钥进行加密</div><div class="line"><span class="number">2</span>. <span class="built_in">SS</span>服务器收到消息之后，会使用<span class="built_in">ss</span>密钥对消息<span class="number">1</span>）进行解密，解密之后使用<span class="built_in">ss</span>会话密钥对消息<span class="number">2</span>）解密，解密成功之后会得到authenticator，认证之后，发送：</div><div class="line">   <span class="number">1</span>）新时间戳，Client发送的时间戳加<span class="number">1</span>，通过<span class="built_in">ss</span>会话密钥进行加密</div><div class="line"><span class="number">3</span>. 客户端收到时间戳之后，解密确认，成功之后发送服务请求</div><div class="line"><span class="number">4</span>. <span class="built_in">ss</span>服务器收到之后提供服务。</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="p-t-h"><a href="#p-t-h" class="headerlink" title="p-t-h"></a>p-t-h</h2><p>pass-the-hash在内网渗透中是一种很经典的攻击方式，原理就是攻击者可以直接通过LM Hash和NTLM Hash访问远程主机或服务，而不用提供明文密码。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a><br><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a></p>
-<hr>
-<p>本文出自”xnianq Blog”：www.xnianq.cn/2018/10/16/域渗透之横向移动/</p>
-
+        <h1 id="域渗透之横向移动"><a href="#域渗透之横向移动" class="headerlink" title="域渗透之横向移动"></a>域渗透之横向移动</h1><p>最近在根据ATT&amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。<br>在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。<br>
+        
+          <a class="article-more-a" href="/2018/10/16/域渗透之横向移动/#more">more >></a>
+        
       
 
       

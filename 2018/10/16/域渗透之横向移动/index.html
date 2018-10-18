@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="www.xnianq.cn">
   <title>域渗透之横向移动 | xnianq&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。 windows认证机制在开始之前先了解一下windows中的认证机制以及hash类型 hash类型LM HashLM Hash是一种较古老的Hash，在LA">
+  <meta name="description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
 <meta name="keywords" content="pentest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="域渗透之横向移动">
 <meta property="og:url" content="www.xnianq.cn/2018/10/16/域渗透之横向移动/index.html">
 <meta property="og:site_name" content="xnianq&#39;blog">
-<meta property="og:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。 windows认证机制在开始之前先了解一下windows中的认证机制以及hash类型 hash类型LM HashLM Hash是一种较古老的Hash，在LA">
+<meta property="og:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/workgroup-ntlm.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ntlm-auth.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/kerberos.png">
-<meta property="og:updated_time" content="2018-10-18T07:28:54.330Z">
+<meta property="og:updated_time" content="2018-10-18T07:32:40.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
-<meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。 windows认证机制在开始之前先了解一下windows中的认证机制以及hash类型 hash类型LM HashLM Hash是一种较古老的Hash，在LA">
+<meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
 <meta name="twitter:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/workgroup-ntlm.png">
   
     <link rel="alternative" href="/atom.xml" title="xnianq&#39;blog" type="application/atom+xml">
@@ -178,7 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="域渗透之横向移动"><a href="#域渗透之横向移动" class="headerlink" title="域渗透之横向移动"></a>域渗透之横向移动</h1><p>最近在根据ATT&amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。<br>在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。</p>
+        <h1 id="域渗透之横向移动"><a href="#域渗透之横向移动" class="headerlink" title="域渗透之横向移动"></a>域渗透之横向移动</h1><p>最近在根据ATT&amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。<br>在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。<br><a id="more"></a></p>
 <h2 id="windows认证机制"><a href="#windows认证机制" class="headerlink" title="windows认证机制"></a>windows认证机制</h2><p>在开始之前先了解一下windows中的认证机制以及hash类型</p>
 <h3 id="hash类型"><a href="#hash类型" class="headerlink" title="hash类型"></a>hash类型</h3><h4 id="LM-Hash"><a href="#LM-Hash" class="headerlink" title="LM Hash"></a>LM Hash</h4><p>LM Hash是一种较古老的Hash，在LAN Manager协议中使用，非常容易通过暴力破解获取明文凭据。Vista以前的Windows OS使用它，Vista之后的版本默认禁用了LM协议，但某些情况下还是可以使用。</p>
 <h4 id="NTLM-Hash"><a href="#NTLM-Hash" class="headerlink" title="NTLM Hash"></a>NTLM Hash</h4><p>Vista以上现代操作系统使用的Hash。通常意义上的NTLM Hash指存储在SAM数据库及NTDS数据库中对密码进行摘要计算后的结果，这类Hash可以直接用于PtH，并且通常存在于lsass进程中，便于SSP使用。</p>
