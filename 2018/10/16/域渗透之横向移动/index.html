@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-5.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-8.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-9.png">
-<meta property="og:updated_time" content="2018-10-19T08:10:23.653Z">
+<meta property="og:updated_time" content="2018-10-19T09:23:11.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
 <meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
@@ -236,19 +236,26 @@
 <h4 id="CrackMapExec"><a href="#CrackMapExec" class="headerlink" title="CrackMapExec"></a>CrackMapExec</h4><p>CrackMapExec可以对C段中的主机进行批量pth,项目地址：<a href="https://github.com/byt3bl33d3r/CrackMapExec.git" target="_blank" rel="external">https://github.com/byt3bl33d3r/CrackMapExec.git</a><br>kali上可以直接通过apt安装：<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-<span class="builtin-name">get</span> install crackmapexec</div></pre></td></tr></table></figure></p>
 <p>对192.168.0.0/24 C段进行批量pth：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">crackmapexec <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">24</span> -u administrator -H <span class="number">03</span>bebb338e70244589ea67c7439c77ba</div></pre></td></tr></table></figure></p>
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-9.png" alt=""><br>p-t-h就到这里了～</p>
-<h2 id="pass-the-ticket"><a href="#pass-the-ticket" class="headerlink" title="pass-the-ticket"></a>pass-the-ticket</h2><p>ptt攻击的部分就不是简单的ntlm认证了，它是利用Kerberos协议进行攻击的，这里就介绍三种常见的攻击方法：MS14-068,Golden ticket,SILVER TICKET.<br>之前介绍了Kerberos协议具体工作方法，在域中，简要介绍一下：</p>
+<h2 id="pass-the-ticket"><a href="#pass-the-ticket" class="headerlink" title="pass-the-ticket"></a>pass-the-ticket</h2><p>ptt攻击的部分就不是简单的ntlm认证了，它是利用Kerberos协议进行攻击的，这里就介绍三种常见的攻击方法：<em>MS14-068</em>,<em>Golden ticket</em>,<em>SILVER TICKET</em>.<br>之前介绍了Kerberos协议具体工作方法，在域中，简要介绍一下：</p>
 <ul>
 <li>客户机将明文密码进行ntlm哈希,然后和时间戳一起加密，发送给kdc（域控）,kdc对用户进行检测，成功之后创建TGT(Ticket-Granting Ticket)</li>
 <li>将TGT进行加密签名返回给客户机器，只有域用户krbtgt才能读取kerberos中tgt数据</li>
 <li>然后客户机将tgt发送给域控制器KDC请求TGS（票证授权服务）票证，并且对tgt进行检测</li>
-<li>检测成功之后，将目标服务账户的ntlm以及tgt进行加密，将加密后的结果返回给客户机。</li>
+<li>检测成功之后，将目标服务账户的ntlm以及tgt进行加密，将加密后的结果返回给客户机。<h3 id="ms14-068"><a href="#ms14-068" class="headerlink" title="ms14-068"></a>ms14-068</h3><blockquote>
+<p>MS14-068是密钥分发中心（KDC）服务中的Windows漏洞。它允许经过身份验证的用户在其Kerberos票证（TGT）中插入任意PAC（表示所有用户权限的结构）。该漏洞位于kdcsvc.dll域控制器的密钥分发中心(KDC)中。用户可以通过呈现具有改变的PAC的Kerberos TGT来获得票证.</p>
+</blockquote>
+</li>
 </ul>
+<p>这里不得不说walkerfuz表哥写的这篇分析文章：<a href="http://www.freebuf.com/vuls/56081.html" target="_blank" rel="external">http://www.freebuf.com/vuls/56081.html</a>  最详细的分析，没有之一，向表哥学习！<br>我用最简单的语言表达一下:<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">windows域中使用kerberos协议过程中，为了让SS服务器判断Client是否有权限访问服务，引入了<span class="keyword">PAC</span>机制。构造<span class="keyword">PAC</span>也是这个漏洞的根本。</div><div class="line">1. 在请求<span class="keyword">AS</span>时，将require_PAC设置成False。</div><div class="line">2. 在请求TGS时，构造<span class="keyword">PAC</span>，然后使用MD5签名（<span class="keyword">PAC</span>尾部的签名算法可以任意指定），<span class="keyword">PAC</span>并没有放在TGT中发送，而是在请求包的其他位置（但是还是可以解析）。</div><div class="line">3. TGS_REP返回的不是会话密钥，而是返回的带<span class="keyword">PAC</span>的TGT（微软的锅）</div></pre></td></tr></table></figure></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a></li>
 <li><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a></li>
 <li><a href="https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ" target="_blank" rel="external">https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ</a></li>
 <li><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_blank" rel="external">https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/</a></li>
+<li><a href="https://adsecurity.org/?p=1515" target="_blank" rel="external">https://adsecurity.org/?p=1515</a></li>
+<li><a href="https://github.com/gentilkiwi/kekeo/wiki/ms14068" target="_blank" rel="external">https://github.com/gentilkiwi/kekeo/wiki/ms14068</a></li>
 <li><a href="http://wooyun.jozxing.cc/static/drops/tips-12159.html" target="_blank" rel="external">http://wooyun.jozxing.cc/static/drops/tips-12159.html</a></li>
+<li><a href="http://www.freebuf.com/vuls/56081.html" target="_blank" rel="external">http://www.freebuf.com/vuls/56081.html</a></li>
 </ul>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2018/10/16/域渗透之横向移动/</p>
@@ -505,11 +512,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">pentest</a>
               </li>
              
               <li class="article-tag-list-item">
