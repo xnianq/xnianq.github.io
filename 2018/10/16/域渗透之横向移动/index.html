@@ -22,8 +22,10 @@
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-2.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-3.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-4.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-6.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-7.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-5.png">
-<meta property="og:updated_time" content="2018-10-18T13:07:01.039Z">
+<meta property="og:updated_time" content="2018-10-19T06:05:37.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
 <meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
@@ -222,10 +224,11 @@
 <h4 id="wmiexec"><a href="#wmiexec" class="headerlink" title="wmiexec"></a>wmiexec</h4><blockquote>
 <p>windows 管理规范[WMI]”,实际上就是windows从03/xp开始就一直内置的一个系统插件,其设计初衷之一是为了管理员能更加方便的对远程windows主机进行各种日常管理,此处我们不妨先来简单来试着想一下,对windows的远程管理到底意味着什么,没错,它意味着我们可以直接在本地操作远程目标机器上的进程,服务,注册表等其它的一系列的特权操作,严格来说它其实是为各种服务提供一个统一的调用接口而设计的,比如,你想操作什么服务就去调用对应的服务类中的方法去执行你的操作就行,不过,单对于内网横向移动来讲,我们可以暂时先不用把它理解的 非常细致,毕竟不是在专门做针对性的防御产品,也正是由于此功效,在正常的管理员的眼里 wmi 可能确实是一把远程管理的好手,但在渗透者眼中,它也同样是一把在目标内网进行横向移动的非常趁手的武器</p>
 </blockquote>
-<p>wmiexec是对windows自带的wmic做了一些强化，让渗透变得更容易。只能说很多工具吧，比较好用的在这里介绍两种：<br><em>第一种</em><br><a href="https://github.com/Kevin-Robertson/Invoke-TheHash" target="_blank" rel="external">https://github.com/Kevin-Robertson/Invoke-TheHash</a><br>其他攻击手法可以看下readme，这里只简单的对pth做一下实验：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Invoke-WMIExec -Target <span class="number">192.168</span><span class="number">.0</span><span class="number">.102</span> -Domain workgroup -Username administrator -Hash <span class="number">03</span>bebb338e70244589ea67c7439c77ba -Command <span class="string">"calc.exe"</span> -verbose</div></pre></td></tr></table></figure></p>
-<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-3.png" alt=""><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-4.png" alt=""></p>
-<p><em>第二种</em><br>wmiexec.exe是通过python impacket库实现的，生成的exe有点大，5.多M在实战起来有点不方便<br><a href="https://github.com/maaaaz/impacket-examples-windows" target="_blank" rel="external">https://github.com/maaaaz/impacket-examples-windows</a><br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wmiexec -hashes <span class="number">00000000000000000000000000000000</span>:<span class="number">03</span>bebb<span class="number">338e70244589</span>ea<span class="number">67</span><span class="keyword">c</span><span class="number">7439</span><span class="keyword">c</span><span class="number">77</span>ba TEST/administrator<span class="title">@192</span>.<span class="number">168.0</span>.<span class="number">100</span> “whoami<span class="string">"</span></div></pre></td></tr></table></figure></p>
-<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-5.png" alt=""></p>
+<p>wmiexec是对windows自带的wmic做了一些强化，让渗透变得更容易。只能说很多工具吧，比较好用的在这里介绍两种：<br><strong>第一种</strong><br><a href="https://github.com/Kevin-Robertson/Invoke-TheHash" target="_blank" rel="external">https://github.com/Kevin-Robertson/Invoke-TheHash</a><br>其他攻击手法可以看下readme，这里只简单的对pth做一下实验：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Invoke-WMIExec -Target <span class="number">192.168</span><span class="number">.0</span><span class="number">.102</span> -Domain workgroup -Username administrator -Hash <span class="number">03</span>bebb338e70244589ea67c7439c77ba -Command <span class="string">"calc.exe"</span> -verbose</div></pre></td></tr></table></figure></p>
+<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-3.png" alt=""><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-4.png" alt=""><br>另外这个项目里面还有smbexec,支持SMB1, SMB2 (2.1), and SMB signing：<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-6.png" alt=""><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-7.png" alt=""><br><strong>第二种</strong><br>wmiexec.exe是通过python impacket库实现的，生成的exe有点大，5M大小在实战起来有点不方便<br><a href="https://github.com/maaaaz/impacket-examples-windows" target="_blank" rel="external">https://github.com/maaaaz/impacket-examples-windows</a><br><figure class="highlight llvm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wmiexec -hashes <span class="number">00000000000000000000000000000000</span>:<span class="number">03</span>bebb<span class="number">338e70244589</span>ea<span class="number">67</span><span class="keyword">c</span><span class="number">7439</span><span class="keyword">c</span><span class="number">77</span>ba TEST/administrator<span class="title">@192</span>.<span class="number">168.0</span>.<span class="number">100</span> “whoami<span class="string">"</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-5.png" alt=""><br>除了这两种工具还有很多可以使用，哪个对你来说顺手就用那个就好了 ：）</p>
+<h3 id="linux-gt-windows"><a href="#linux-gt-windows" class="headerlink" title="linux -&gt; windows"></a>linux -&gt; windows</h3><p>在linux上进行pth原理上来讲是和windows上面是一样的，只是使用工具不同而已。</p>
+<p>#### </p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a><br><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a><br><a href="https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ" target="_blank" rel="external">https://mp.weixin.qq.com/s/7YidkhJvmVBxFhYcD7pIfQ</a><br><a href="https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/" target="_blank" rel="external">https://3gstudent.github.io/3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Pass-The-Hash%E7%9A%84%E5%AE%9E%E7%8E%B0/</a></p>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2018/10/16/域渗透之横向移动/</p>
@@ -490,15 +493,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
